@@ -6,7 +6,7 @@ export const reserveSchema = z.object({
     .string()
     .trim()
     .transform((v) => v.replace(/\D/g, ""))
-    .refine((v) => v.length >= 9 && v.length <= 11, "올바른 전화번호를 입력해 주세요."),
+    .refine((v) => /^010\d{8}$/.test(v), "010으로 시작하는 숫자 11자리를 입력해 주세요."),
   name: z.string().trim().min(1, "이름을 입력해 주세요.").max(50),
   high_school: z.string().trim().min(1, "졸업 고등학교를 입력해 주세요.").max(100),
   afterparty: z.boolean().optional().default(false),
@@ -21,7 +21,7 @@ export const lookupSchema = z.object({
     .string()
     .trim()
     .transform((v) => v.replace(/\D/g, ""))
-    .refine((v) => v.length >= 9 && v.length <= 11, "올바른 전화번호를 입력해 주세요."),
+    .refine((v) => /^010\d{8}$/.test(v), "010으로 시작하는 숫자 11자리를 입력해 주세요."),
   code: z
     .string()
     .trim()

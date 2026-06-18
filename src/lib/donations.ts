@@ -11,7 +11,7 @@ export const donationSchema = z
       .string()
       .trim()
       .transform((v) => v.replace(/\D/g, ""))
-      .refine((v) => v.length >= 9 && v.length <= 11, "올바른 전화번호를 입력해 주세요."),
+      .refine((v) => /^010\d{8}$/.test(v), "010으로 시작하는 숫자 11자리를 입력해 주세요."),
     amount: z.coerce
       .number()
       .int("후원 금액을 정수로 입력해 주세요.")

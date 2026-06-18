@@ -110,11 +110,15 @@ export function LookupForm() {
               type="tel"
               required
               inputMode="numeric"
+              maxLength={11}
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="010-1234-5678"
+              onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 11))}
+              placeholder="01012345678"
               className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-ink"
             />
+            <span className="mt-1.5 block text-[12px] text-faint">
+              ‘-’ 없이 010으로 시작하는 숫자만 입력하세요 (예: 01012345678).
+            </span>
           </label>
           <label className="block">
             <span className="font-mono text-xs uppercase tracking-widest text-muted">
