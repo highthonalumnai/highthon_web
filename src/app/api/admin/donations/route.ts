@@ -30,11 +30,19 @@ export async function POST(request: Request) {
   }
 
   const { action, id } = body;
-  if ((action !== "confirm" && action !== "cancel") || typeof id !== "string") {
+  if (
+    (action !== "confirm" && action !== "cancel" && action !== "issue_code") ||
+    typeof id !== "string"
+  ) {
     return NextResponse.json({ error: "잘못된 요청입니다." }, { status: 400 });
   }
 
-  const fn = action === "confirm" ? "admin_confirm_donation" : "admin_cancel_donation";
+  const fn =
+    action === "confirm"
+      ? "admin_confirm_donation"
+      : action === "cancel"
+        ? "admin_cancel_donation"
+        : "admin_issue_donation_code";
   const { data, error } = await supabaseServer().rpc(fn, {
     p_secret: adminSecret(),
     p_id: id,

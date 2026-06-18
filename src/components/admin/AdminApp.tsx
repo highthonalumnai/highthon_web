@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Check, LogOut, RefreshCw, X } from "lucide-react";
+import { Check, Hash, LogOut, RefreshCw, X } from "lucide-react";
 import {
   formatPhone,
   formatWon,
@@ -226,7 +226,7 @@ function Row({
       <td className="py-3 pr-3 text-sm text-muted">{formatWon(t.amount)}</td>
       <td className="py-3 pr-3 text-right">
         <div className="inline-flex gap-2">
-          {t.status !== "confirmed" && (
+          {t.status === "pending" && (
             <button
               onClick={() => onAction(t.id, "confirm")}
               disabled={busy}
@@ -258,7 +258,7 @@ function DonationRow({
   busy,
 }: {
   d: Donation;
-  onAction: (id: string, action: "confirm" | "cancel") => void;
+  onAction: (id: string, action: "confirm" | "cancel" | "issue_code") => void;
   busy: boolean;
 }) {
   return (
@@ -292,7 +292,17 @@ function DonationRow({
       <td className="py-3 pr-3 text-sm text-muted">{formatWon(d.amount)}</td>
       <td className="py-3 pr-3 text-right">
         <div className="inline-flex gap-2">
-          {d.status !== "confirmed" && (
+          {d.code == null && d.status === "pending" && (
+            <button
+              onClick={() => onAction(d.id, "issue_code")}
+              disabled={busy}
+              title="번호 발급"
+              className="inline-flex items-center gap-1 rounded-full border border-line-strong px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink transition hover:bg-ink hover:text-paper disabled:opacity-40"
+            >
+              <Hash size={12} /> 번호 발급
+            </button>
+          )}
+          {d.status === "pending" && (
             <button
               onClick={() => onAction(d.id, "confirm")}
               disabled={busy}
@@ -404,7 +414,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
     }
   }
 
-  async function donationAction(id: string, act: "confirm" | "cancel") {
+  async function donationAction(id: string, act: "confirm" | "cancel" | "issue_code") {
     setDonBusyId(id);
     try {
       const res = await fetch("/api/admin/donations", {
@@ -532,14 +542,21 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
 
       <div className="mt-5 grid grid-cols-3 gap-3">
         {[
-          { label: "후원 건수", value: `${donations.length}` },
           {
-            label: "후원 합계",
-            value: formatWon(donations.reduce((sum, d) => sum + d.amount, 0)),
+            label: "대기 (확인 필요)",
+            value: `${donations.filter((d) => d.status === "pending").length}`,
           },
           {
-            label: "현장참여 후원",
-            value: `${donations.filter((d) => d.attend).length}`,
+            label: "확정 후원 합계",
+            value: formatWon(
+              donations
+                .filter((d) => d.status === "confirmed")
+                .reduce((sum, d) => sum + d.amount, 0),
+            ),
+          },
+          {
+            label: "현장참여 후원 (확정)",
+            value: `${donations.filter((d) => d.status === "confirmed" && d.attend).length}`,
           },
         ].map((s) => (
           <div key={s.label} className="rounded-xl border border-line bg-surface/60 p-4">
