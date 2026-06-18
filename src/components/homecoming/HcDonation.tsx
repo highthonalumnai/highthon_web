@@ -6,6 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { Countdown } from "@/components/ticket/Countdown";
 import { formatWon, type TicketSettings } from "@/lib/tickets";
 import { DONATION_MIN, type Donation } from "@/lib/donations";
+import { HC_CONTACT } from "@/lib/homecoming";
 
 function CopyButton({ value }: { value: string }) {
   const [done, setDone] = useState(false);
@@ -282,9 +283,10 @@ function DonationResult({
 
       {reviewing ? (
         <p className="mt-5 text-[14px] leading-relaxed text-muted">
-          소중한 후원 신청을 보내주셔서 감사합니다. 입력하신 이메일{" "}
-          <b className="text-ink">{donation.email}</b> 로 담당자가 확인 후 혜택과 입금
-          방법을 안내드리겠습니다.
+          소중한 후원 신청을 보내주셔서 감사합니다. 담당자가 확인 후{" "}
+          <b className="text-ink">{HC_CONTACT.email}</b> 에서 입력하신 이메일{" "}
+          <b className="text-ink">{donation.email}</b> 로 혜택과 입금 방법을
+          안내드리겠습니다.
         </p>
       ) : (
         <div className="mt-7 rounded-xl border border-line-strong bg-ink p-6 text-center text-paper">
