@@ -38,6 +38,7 @@ export type Donation = {
   attend: boolean;
   wants_benefit: boolean;
   benefit: string;
+  source: "standalone" | "ticket";
   created_at: string;
   expires_at: string | null;
   confirmed_at: string | null;

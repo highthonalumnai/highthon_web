@@ -77,11 +77,18 @@ export function HcSponsorHero() {
         <Reveal delay={0.32}>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
-              href={`mailto:${HC_CONTACT.email}?subject=하이톤 홈커밍데이 후원 문의`}
+              href={`mailto:${HC_CONTACT.email}?subject=하이톤 홈커밍데이 기업 후원 문의`}
               className="group inline-flex items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-ink transition hover:scale-[1.03] hover:bg-[#e5e5e5]"
             >
-              후원 문의
+              기업 후원 문의
               <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+            <a
+              href="#donation"
+              className="group inline-flex items-center gap-2 rounded-full border border-paper/30 px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-paper transition hover:bg-paper hover:text-ink"
+            >
+              개인 후원하기
+              <ArrowDown size={16} className="transition-transform group-hover:translate-y-0.5" />
             </a>
             <a
               href="#value"
