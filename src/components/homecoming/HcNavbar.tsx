@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Menu, X } from "lucide-react";
-import { HC_NAV, HC_CONTACT } from "@/lib/homecoming";
+import { HC_NAV } from "@/lib/homecoming";
 
 export function HcNavbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -65,14 +65,14 @@ export function HcNavbar() {
             <ArrowLeft size={13} className="transition-transform group-hover:-translate-x-0.5" />
             HIGHTHON
           </Link>
-          <a
-            href={`mailto:${HC_CONTACT.email}?subject=하이톤 홈커밍데이 후원 문의`}
+          <Link
+            href="/homecoming/sponsor"
             className={`font-mono text-xs uppercase tracking-widest transition-colors ${
               light ? "text-paper/60 hover:text-paper" : "text-faint hover:text-ink"
             }`}
           >
-            후원 문의
-          </a>
+            기업 후원
+          </Link>
           <Link
             href="/homecoming/ticket"
             className={`rounded-full px-5 py-2 font-mono text-xs font-bold uppercase tracking-wider transition hover:opacity-80 ${
@@ -116,13 +116,13 @@ export function HcNavbar() {
               </Link>
             </li>
             <li>
-              <a
-                href={`mailto:${HC_CONTACT.email}?subject=하이톤 홈커밍데이 후원 문의`}
+              <Link
+                href="/homecoming/sponsor"
                 onClick={() => setOpen(false)}
                 className="block py-3 font-mono text-sm uppercase tracking-widest text-muted"
               >
-                후원 문의
-              </a>
+                기업 후원
+              </Link>
             </li>
             <li>
               <Link

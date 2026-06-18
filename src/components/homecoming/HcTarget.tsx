@@ -28,7 +28,7 @@ export function HcTarget() {
 
           <div>
             <Reveal>
-              <span className="eyebrow">Main Target — 주요 타겟</span>
+              <span className="eyebrow">Who Joins — 참가 대상</span>
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="mt-5 font-display text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
@@ -39,7 +39,7 @@ export function HcTarget() {
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
-                홈커밍 컨셉에 맞춰 일찍 IT 진로를 선택한 성인들을 대상으로 합니다.
+                당신처럼 일찍 IT 진로를 택한 하이톤 출신이라면 누구나 환영합니다.
                 100명의 참가자와 10명의 운영진이 함께 만드는 하루입니다.
               </p>
             </Reveal>

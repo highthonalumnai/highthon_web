@@ -3,7 +3,7 @@ import { Reveal } from "@/components/Reveal";
 
 export function HcValue() {
   return (
-    <section className="relative scroll-mt-20 py-28 sm:py-36">
+    <section id="value" className="relative scroll-mt-20 py-28 sm:py-36">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
