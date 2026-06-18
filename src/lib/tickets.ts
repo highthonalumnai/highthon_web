@@ -9,7 +9,11 @@ export const reserveSchema = z.object({
     .refine((v) => v.length >= 9 && v.length <= 11, "올바른 전화번호를 입력해 주세요."),
   name: z.string().trim().min(1, "이름을 입력해 주세요.").max(50),
   high_school: z.string().trim().min(1, "졸업 고등학교를 입력해 주세요.").max(100),
+  afterparty: z.boolean().optional().default(false),
 });
+
+/** 뒤풀이 참가 시 티켓 금액에 더해지는 추가금 (원). */
+export const AFTERPARTY_FEE = 10000;
 
 export const lookupSchema = z.object({
   email: z.string().trim().email("올바른 이메일을 입력해 주세요.").max(254),
@@ -35,6 +39,7 @@ export type Ticket = {
   phone: string;
   name: string;
   high_school: string;
+  afterparty: boolean;
   created_at: string;
   expires_at: string;
   confirmed_at: string | null;

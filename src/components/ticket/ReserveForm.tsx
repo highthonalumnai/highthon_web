@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Check, Copy, Landmark } from "lucide-react";
 import { Countdown } from "./Countdown";
-import { formatWon, type Ticket, type TicketSettings } from "@/lib/tickets";
+import { AFTERPARTY_FEE, formatWon, type Ticket, type TicketSettings } from "@/lib/tickets";
 import { HC_EVENT } from "@/lib/homecoming";
 
 function CopyButton({ value }: { value: string }) {
@@ -35,12 +35,14 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [highSchool, setHighSchool] = useState("");
+  const [afterparty, setAfterparty] = useState(false);
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [ticket, setTicket] = useState<Ticket | null>(null);
 
   const soldOut = settings.sold_out;
+  const total = settings.price + (afterparty ? AFTERPARTY_FEE : 0);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -54,7 +56,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
       const res = await fetch("/api/tickets/reserve", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone, name, high_school: highSchool }),
+        body: JSON.stringify({ email, phone, name, high_school: highSchool, afterparty }),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -105,6 +107,12 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
             <dt className="text-faint">입금 금액</dt>
             <dd className="font-display text-lg font-bold">{formatWon(ticket.amount)}</dd>
           </div>
+          {ticket.afterparty && (
+            <div className="flex items-center justify-between gap-4 border-t border-line pt-3">
+              <dt className="text-faint">뒤풀이</dt>
+              <dd className="font-medium text-ink">참가 (보증금 +{formatWon(AFTERPARTY_FEE)})</dd>
+            </div>
+          )}
           <div className="flex items-center justify-between gap-4 border-t border-line pt-3">
             <dt className="text-faint">입금 계좌</dt>
             <dd className="flex items-center gap-3 text-right">
@@ -127,6 +135,12 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
             <br />· 입금 확인은 최대 1시간이 걸리며, 1시간 내 미입금 시 예약은 자동
             취소됩니다.
             <br />· 입력하신 이메일·전화번호와 예약 번호로 예약 상태를 조회할 수 있습니다.
+            {ticket.afterparty && (
+              <>
+                <br />· 뒤풀이 보증금 <b className="text-ink">{formatWon(AFTERPARTY_FEE)}</b>은
+                뒤풀이 참석 시 현장에서 그대로 돌려드립니다.
+              </>
+            )}
           </p>
         )}
 
@@ -146,6 +160,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
               setEmail("");
               setPhone("");
               setHighSchool("");
+              setAfterparty(false);
               setAgree(false);
             }}
             className="inline-flex items-center rounded-full border border-line-strong px-6 py-3 font-mono text-xs uppercase tracking-wider text-ink transition hover:bg-ink hover:text-paper"
@@ -172,7 +187,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
         </div>
         <div className="border-x border-line">
           <dt className="font-mono text-[10px] uppercase tracking-widest text-faint">금액</dt>
-          <dd className="mt-1 font-display text-sm font-bold">{formatWon(settings.price)}</dd>
+          <dd className="mt-1 font-display text-sm font-bold">{formatWon(total)}</dd>
         </div>
         <div>
           <dt className="font-mono text-[10px] uppercase tracking-widest text-faint">잔여</dt>
@@ -234,6 +249,21 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
               placeholder="OO고등학교"
               className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-ink"
             />
+          </label>
+
+          <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-line bg-paper px-4 py-3.5 text-[13px] leading-relaxed text-muted transition hover:border-ink/40">
+            <input
+              type="checkbox"
+              checked={afterparty}
+              onChange={(e) => setAfterparty(e.target.checked)}
+              className="mt-0.5 h-4 w-4 accent-ink"
+            />
+            <span>
+              <b className="text-ink">뒤풀이 참가 (+{formatWon(AFTERPARTY_FEE)} 보증금)</b>
+              <br />
+              추가되는 {formatWon(AFTERPARTY_FEE)}은 <b className="text-ink">보증금</b>으로,
+              뒤풀이에 참석하시면 현장에서 그대로 돌려드립니다.
+            </span>
           </label>
 
           <label className="flex items-start gap-3 text-[13px] leading-relaxed text-muted">
