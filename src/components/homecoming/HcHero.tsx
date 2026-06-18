@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ArrowDown, CalendarDays } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { HC_EVENT } from "@/lib/homecoming";
+import { HC_EVENT, HC_SPONSORS } from "@/lib/homecoming";
 
 export function HcHero() {
   return (
@@ -82,6 +82,22 @@ export function HcHero() {
               행사 살펴보기
               <ArrowDown size={16} />
             </a>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.4}>
+          <div className="mt-12 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-paper/15 pt-6">
+            <span className="font-mono text-[11px] uppercase tracking-widest text-paper/40">
+              Sponsored by
+            </span>
+            {HC_SPONSORS.map((s) => (
+              <span
+                key={s}
+                className="font-display text-base font-bold tracking-tight text-paper/85"
+              >
+                {s}
+              </span>
+            ))}
           </div>
         </Reveal>
       </div>

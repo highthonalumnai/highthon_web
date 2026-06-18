@@ -8,6 +8,7 @@ import { HcVision } from "@/components/homecoming/HcVision";
 import { HcWhy } from "@/components/homecoming/HcWhy";
 import { HcDifferentiation } from "@/components/homecoming/HcDifferentiation";
 import { HcSchedule } from "@/components/homecoming/HcSchedule";
+import { HcVenue } from "@/components/homecoming/HcVenue";
 import { HcProgramDetail } from "@/components/homecoming/HcProgramDetail";
 import { HcTicketCta } from "@/components/homecoming/HcTicketCta";
 import { HcFaq } from "@/components/homecoming/HcFaq";
@@ -39,6 +40,7 @@ export default function HomecomingPage() {
         <HcWhy />
         <HcDifferentiation />
         <HcSchedule />
+        <HcVenue />
         <HcProgramDetail />
         <HcTicketCta />
         <HcFaq />

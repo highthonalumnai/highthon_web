@@ -11,6 +11,17 @@ export const HC_CONTACT = {
   instagramHandle: "@highthon_homecomingday",
 } as const;
 
+// 확정 후원사 (히어로 배너 표시)
+export const HC_SPONSORS = ["AWS Korea"] as const;
+
+// 행사 장소 + 지도 길찾기
+const HC_ADDRESS = "서울시 강남구 테헤란로 231";
+export const HC_LOCATION = {
+  address: HC_ADDRESS,
+  naverUrl: `https://map.naver.com/p/search/${encodeURIComponent(HC_ADDRESS)}`,
+  kakaoUrl: `https://map.kakao.com/?q=${encodeURIComponent(HC_ADDRESS)}`,
+} as const;
+
 export const HC_NAV = [
   { label: "소개", href: "#about" },
   { label: "대상", href: "#target" },

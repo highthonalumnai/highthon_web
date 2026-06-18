@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, MapPin } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { HC_CONTACT, HC_EVENT } from "@/lib/homecoming";
+import { HC_CONTACT, HC_EVENT, HC_LOCATION } from "@/lib/homecoming";
 
 function HomeBadge() {
   return (
@@ -73,6 +73,38 @@ export function HcFooter() {
 
             <Reveal delay={0.16}>
               <div className="mt-12">
+                <h3 className="font-mono text-sm font-bold uppercase tracking-widest text-paper">
+                  Venue
+                </h3>
+                <p className="mt-4 flex items-start gap-2 font-display text-lg font-bold">
+                  <MapPin size={18} className="mt-1 shrink-0 text-paper/60" />
+                  {HC_LOCATION.address}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1">
+                  <a
+                    href={HC_LOCATION.naverUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-paper/60 transition-colors hover:text-paper"
+                  >
+                    네이버지도
+                    <ArrowUpRight size={13} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                  <a
+                    href={HC_LOCATION.kakaoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-paper/60 transition-colors hover:text-paper"
+                  >
+                    카카오지도
+                    <ArrowUpRight size={13} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <div className="mt-10">
                 <h3 className="font-mono text-sm font-bold uppercase tracking-widest text-paper">
                   Follow Us
                 </h3>
