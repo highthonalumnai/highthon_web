@@ -27,7 +27,7 @@ export function HcHero() {
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
       </div>
 
-      <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-5 pb-24 pt-28 sm:px-8">
+      <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-5 pb-16 pt-28 sm:px-8">
         <Reveal>
           <div className="mb-7 flex items-center gap-3">
             <span className="h-px w-10 bg-paper" />
@@ -98,18 +98,19 @@ export function HcHero() {
         </Reveal>
 
         <Reveal delay={0.4}>
-          <div className="mt-12 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-paper/15 pt-6">
-            <span className="font-mono text-[11px] uppercase tracking-widest text-paper/40">
+          <div className="relative left-1/2 right-1/2 mt-32 -mx-[50vw] w-screen bg-gray-300/30 px-6 py-7 sm:px-10">
+            <p className="text-center font-mono text-sm uppercase tracking-[0.3em] text-paper sm:text-base">
               Sponsored by
-            </span>
-            {HC_SPONSORS.map((s) => (
-              <span
-                key={s}
-                className="font-display text-base font-bold tracking-tight text-paper/85"
-              >
-                {s}
-              </span>
-            ))}
+            </p>
+            <div className="mt-5 flex items-center justify-center">
+              <Image
+                src="/homecoming/aws-color.png"
+                alt={HC_SPONSORS.join(", ")}
+                width={640}
+                height={640}
+                className="h-14 w-auto sm:h-16"
+              />
+            </div>
           </div>
         </Reveal>
       </div>
