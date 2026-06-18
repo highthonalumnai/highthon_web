@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Menu, X } from "lucide-react";
 import { HC_NAV } from "@/lib/homecoming";
@@ -30,10 +31,12 @@ export function HcNavbar() {
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
         <a href="#top" className="group flex items-center gap-2">
-          <span
-            className={`inline-block h-2.5 w-2.5 rounded-sm transition ${
-              light ? "bg-paper" : "bg-ink"
-            }`}
+          <Image
+            src="/homecoming/logo.png"
+            alt=""
+            width={32}
+            height={32}
+            className={`h-8 w-8 object-contain transition ${light ? "invert" : ""}`}
           />
           <span className="font-display text-[15px] font-extrabold tracking-tight">
             HOMECOMING<span className="font-mono text-[10px] align-top"> DAY</span>

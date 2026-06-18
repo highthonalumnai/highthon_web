@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
@@ -5,26 +6,14 @@ import { HC_CONTACT, HC_EVENT, HC_LOCATION } from "@/lib/homecoming";
 
 function HomeBadge() {
   return (
-    <div className="relative mx-auto flex aspect-square w-full max-w-sm items-center justify-center">
-      {/* house outline */}
-      <svg
-        viewBox="0 0 200 200"
-        className="absolute inset-0 h-full w-full text-paper/15"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-        aria-hidden
-      >
-        <path d="M30 78 L100 28 L170 78 L170 172 L30 172 Z" />
-        <path d="M16 86 L100 26 L184 86" strokeWidth="3" />
-      </svg>
-      <div className="relative text-center font-display font-extrabold leading-[0.95] tracking-tight text-paper/30">
-        <div className="text-2xl">HIGHTHON</div>
-        <div className="text-[2.6rem]">HOME</div>
-        <div className="text-[2.6rem]">COMING</div>
-        <div className="text-2xl">DAY</div>
-      </div>
+    <div className="relative mx-auto aspect-square w-full max-w-sm">
+      <Image
+        src="/homecoming/logo.png"
+        alt="HIGHTHON HOMECOMING DAY"
+        fill
+        sizes="(max-width: 1024px) 100vw, 384px"
+        className="object-contain opacity-90 invert"
+      />
     </div>
   );
 }
