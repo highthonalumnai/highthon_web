@@ -21,6 +21,9 @@ function TicketCard({ ticket }: { ticket: Ticket }) {
         <span className="font-display text-sm font-bold">{meta.label}</span>
       </div>
       <p className="mt-3 text-[13px] leading-relaxed opacity-80">{meta.desc}</p>
+      <p className="mt-2 text-[13px] font-medium opacity-70">
+        {ticket.name} · {ticket.high_school}
+      </p>
 
       {ticket.status === "pending" && (
         <div className="mt-4 space-y-2 border-t border-current/15 pt-4 text-[13px]">

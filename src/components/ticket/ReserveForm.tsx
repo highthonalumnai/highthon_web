@@ -31,8 +31,10 @@ function CopyButton({ value }: { value: string }) {
 }
 
 export function ReserveForm({ settings }: { settings: TicketSettings }) {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [highSchool, setHighSchool] = useState("");
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -52,7 +54,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
       const res = await fetch("/api/tickets/reserve", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone }),
+        body: JSON.stringify({ email, phone, name, high_school: highSchool }),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -140,8 +142,10 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
             type="button"
             onClick={() => {
               setTicket(null);
+              setName("");
               setEmail("");
               setPhone("");
+              setHighSchool("");
               setAgree(false);
             }}
             className="inline-flex items-center rounded-full border border-line-strong px-6 py-3 font-mono text-xs uppercase tracking-wider text-ink transition hover:bg-ink hover:text-paper"
@@ -185,6 +189,17 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
       ) : (
         <div className="mt-6 space-y-5">
           <label className="block">
+            <span className="font-mono text-xs uppercase tracking-widest text-muted">이름</span>
+            <input
+              type="text"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="홍길동"
+              className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-ink"
+            />
+          </label>
+          <label className="block">
             <span className="font-mono text-xs uppercase tracking-widest text-muted">이메일</span>
             <input
               type="email"
@@ -204,6 +219,19 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="010-1234-5678"
+              className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-ink"
+            />
+          </label>
+          <label className="block">
+            <span className="font-mono text-xs uppercase tracking-widest text-muted">
+              졸업 고등학교
+            </span>
+            <input
+              type="text"
+              required
+              value={highSchool}
+              onChange={(e) => setHighSchool(e.target.value)}
+              placeholder="OO고등학교"
               className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-ink"
             />
           </label>

@@ -7,6 +7,8 @@ export const reserveSchema = z.object({
     .trim()
     .transform((v) => v.replace(/\D/g, ""))
     .refine((v) => v.length >= 9 && v.length <= 11, "올바른 전화번호를 입력해 주세요."),
+  name: z.string().trim().min(1, "이름을 입력해 주세요.").max(50),
+  high_school: z.string().trim().min(1, "졸업 고등학교를 입력해 주세요.").max(100),
 });
 
 export const lookupSchema = z.object({
@@ -31,6 +33,8 @@ export type Ticket = {
   amount: number;
   email: string;
   phone: string;
+  name: string;
+  high_school: string;
   created_at: string;
   expires_at: string;
   confirmed_at: string | null;
@@ -77,5 +81,7 @@ export const RESERVE_ERRORS: Record<string, string> = {
   SOLD_OUT: "예약이 마감되었습니다. (정원 초과)",
   INVALID_EMAIL: "올바른 이메일을 입력해 주세요.",
   INVALID_PHONE: "올바른 전화번호를 입력해 주세요.",
+  INVALID_NAME: "이름을 입력해 주세요.",
+  INVALID_SCHOOL: "졸업 고등학교를 입력해 주세요.",
   CODE_GEN_FAILED: "예약 번호 생성에 실패했습니다. 잠시 후 다시 시도해 주세요.",
 };

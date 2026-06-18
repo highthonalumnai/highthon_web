@@ -21,6 +21,8 @@ export async function POST(request: Request) {
   const { data, error } = await supabaseServer().rpc("reserve_ticket", {
     p_email: parsed.data.email,
     p_phone: parsed.data.phone,
+    p_name: parsed.data.name,
+    p_high_school: parsed.data.high_school,
   });
 
   if (error) {

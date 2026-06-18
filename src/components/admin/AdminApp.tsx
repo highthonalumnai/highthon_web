@@ -216,6 +216,9 @@ function Row({
       <td className="py-3 pr-3 font-display text-lg font-extrabold tracking-widest">{t.code}</td>
       <td className="py-3 pr-3"><StatusBadge status={t.status} /></td>
       <td className="py-3 pr-3 text-sm">
+        <div className="font-medium text-ink">
+          {t.name} <span className="font-normal text-muted">· {t.high_school}</span>
+        </div>
         <div className="text-ink">{t.email}</div>
         <div className="text-faint">{formatPhone(t.phone)}</div>
       </td>
