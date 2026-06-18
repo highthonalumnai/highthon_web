@@ -74,7 +74,7 @@ export function HcNavbar() {
               light ? "text-paper/60 hover:text-paper" : "text-faint hover:text-ink"
             }`}
           >
-            기업 후원
+            후원 문의
           </Link>
           <Link
             href="/homecoming/ticket"
