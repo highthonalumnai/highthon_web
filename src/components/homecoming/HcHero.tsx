@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ArrowDown, CalendarDays } from "lucide-react";
+import { ArrowUpRight, ArrowDown, CalendarDays, MapPin } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { HC_EVENT, HC_SPONSORS } from "@/lib/homecoming";
+import { HC_EVENT, HC_SPONSORS, HC_LOCATION } from "@/lib/homecoming";
 
 export function HcHero() {
   return (
@@ -50,11 +50,23 @@ export function HcHero() {
         </h1>
 
         <Reveal delay={0.22}>
-          <div className="mt-8 inline-flex items-center gap-2.5 rounded-full border border-paper/25 px-4 py-2">
-            <CalendarDays size={15} className="text-paper" />
-            <span className="font-mono text-xs uppercase tracking-widest text-paper">
-              {HC_EVENT.dateFull}
-            </span>
+          <div className="mt-8 flex flex-wrap items-center gap-2.5">
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-paper/25 px-4 py-2">
+              <CalendarDays size={15} className="text-paper" />
+              <span className="font-mono text-xs uppercase tracking-widest text-paper">
+                {HC_EVENT.dateFull}
+              </span>
+            </div>
+            <a
+              href={HC_LOCATION.naverUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex items-center gap-2.5 rounded-full border border-paper/25 px-4 py-2 transition-colors hover:border-paper/60"
+            >
+              <MapPin size={15} className="text-paper" />
+              <span className="text-xs tracking-wide text-paper">{HC_LOCATION.address}</span>
+              <ArrowUpRight size={13} className="text-paper/60 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
           </div>
         </Reveal>
 
