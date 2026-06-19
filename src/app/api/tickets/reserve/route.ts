@@ -24,6 +24,9 @@ export async function POST(request: Request) {
     p_name: parsed.data.name,
     p_high_school: parsed.data.high_school,
     p_afterparty: parsed.data.afterparty,
+    p_job_role: parsed.data.job_role,
+    p_years: parsed.data.years,
+    p_affiliation: parsed.data.affiliation,
   });
 
   if (error) {

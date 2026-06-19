@@ -4,7 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Check, Copy, Landmark } from "lucide-react";
 import { Countdown } from "./Countdown";
-import { AFTERPARTY_FEE, formatWon, type Ticket, type TicketSettings } from "@/lib/tickets";
+import {
+  AFTERPARTY_FEE,
+  YEARS_OPTIONS,
+  formatWon,
+  type Ticket,
+  type TicketSettings,
+} from "@/lib/tickets";
 import { HC_EVENT } from "@/lib/homecoming";
 
 function CopyButton({ value }: { value: string }) {
@@ -35,6 +41,9 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [highSchool, setHighSchool] = useState("");
+  const [jobRole, setJobRole] = useState("");
+  const [years, setYears] = useState("");
+  const [affiliation, setAffiliation] = useState("");
   const [afterparty, setAfterparty] = useState(false);
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -56,7 +65,16 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
       const res = await fetch("/api/tickets/reserve", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone, name, high_school: highSchool, afterparty }),
+        body: JSON.stringify({
+          email,
+          phone,
+          name,
+          high_school: highSchool,
+          afterparty,
+          job_role: jobRole,
+          years,
+          affiliation,
+        }),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -160,6 +178,9 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
               setEmail("");
               setPhone("");
               setHighSchool("");
+              setJobRole("");
+              setYears("");
+              setAffiliation("");
               setAfterparty(false);
               setAgree(false);
             }}
@@ -254,6 +275,52 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
               className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-ink"
             />
           </label>
+          <label className="block">
+            <span className="font-mono text-xs uppercase tracking-widest text-muted">직무</span>
+            <input
+              type="text"
+              required
+              value={jobRole}
+              onChange={(e) => setJobRole(e.target.value)}
+              placeholder="예: 백엔드 개발자"
+              className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-ink"
+            />
+          </label>
+          <label className="block">
+            <span className="font-mono text-xs uppercase tracking-widest text-muted">연차</span>
+            <select
+              required
+              value={years}
+              onChange={(e) => setYears(e.target.value)}
+              className={`mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-ink ${
+                years ? "text-ink" : "text-faint"
+              }`}
+            >
+              <option value="" disabled>
+                선택해 주세요
+              </option>
+              {YEARS_OPTIONS.map((y) => (
+                <option key={y} value={y} className="text-ink">
+                  {y}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="block">
+            <span className="font-mono text-xs uppercase tracking-widest text-muted">소속</span>
+            <input
+              type="text"
+              required
+              value={affiliation}
+              onChange={(e) => setAffiliation(e.target.value)}
+              placeholder="예: OO회사 / OO대학교"
+              className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-ink"
+            />
+          </label>
+          <p className="rounded-lg border border-line bg-paper px-4 py-3 text-[12px] leading-relaxed text-faint">
+            입력하신 <b className="text-muted">직무·연차·소속</b>은 원활한 네트워킹을 위해
+            운영진만 활용하며, 다른 참가자에게는 공개되지 않습니다.
+          </p>
 
           <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-line bg-paper px-4 py-3.5 text-[13px] leading-relaxed text-muted transition hover:border-ink/40">
             <input

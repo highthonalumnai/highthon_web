@@ -222,6 +222,11 @@ function Row({
         </div>
         <div className="text-ink">{t.email}</div>
         <div className="text-faint">{formatPhone(t.phone)}</div>
+        {(t.job_role || t.years || t.affiliation) && (
+          <div className="mt-1 text-[13px] text-muted">
+            {[t.job_role, t.years, t.affiliation].filter(Boolean).join(" · ")}
+          </div>
+        )}
       </td>
       <td className="py-3 pr-3 text-sm text-muted">{formatWon(t.amount)}</td>
       <td className="py-3 pr-3 text-right">

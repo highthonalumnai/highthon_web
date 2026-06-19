@@ -1,5 +1,15 @@
 import { z } from "zod";
 
+/** 연차 드롭다운 선택지 (운영진 네트워킹용). */
+export const YEARS_OPTIONS = [
+  "학생",
+  "신입(1년 미만)",
+  "1~3년",
+  "4~6년",
+  "7~9년",
+  "10년 이상",
+] as const;
+
 export const reserveSchema = z.object({
   email: z.string().trim().email("올바른 이메일을 입력해 주세요.").max(254),
   phone: z
@@ -10,6 +20,9 @@ export const reserveSchema = z.object({
   name: z.string().trim().min(1, "이름을 입력해 주세요.").max(50),
   high_school: z.string().trim().min(1, "졸업 고등학교를 입력해 주세요.").max(100),
   afterparty: z.boolean().optional().default(false),
+  job_role: z.string().trim().min(1, "직무를 입력해 주세요.").max(60),
+  years: z.enum(YEARS_OPTIONS, "연차를 선택해 주세요."),
+  affiliation: z.string().trim().min(1, "소속을 입력해 주세요.").max(80),
 });
 
 /** 뒤풀이 참가 시 티켓 금액에 더해지는 추가금 (원). */
@@ -40,6 +53,9 @@ export type Ticket = {
   name: string;
   high_school: string;
   afterparty: boolean;
+  job_role: string;
+  years: string;
+  affiliation: string;
   created_at: string;
   expires_at: string;
   confirmed_at: string | null;
@@ -88,5 +104,8 @@ export const RESERVE_ERRORS: Record<string, string> = {
   INVALID_PHONE: "올바른 전화번호를 입력해 주세요.",
   INVALID_NAME: "이름을 입력해 주세요.",
   INVALID_SCHOOL: "졸업 고등학교를 입력해 주세요.",
+  INVALID_JOB_ROLE: "직무를 입력해 주세요.",
+  INVALID_YEARS: "연차를 선택해 주세요.",
+  INVALID_AFFILIATION: "소속을 입력해 주세요.",
   CODE_GEN_FAILED: "예약 번호 생성에 실패했습니다. 잠시 후 다시 시도해 주세요.",
 };
