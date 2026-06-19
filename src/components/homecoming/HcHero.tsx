@@ -35,7 +35,7 @@ export function HcHero() {
           </div>
         </Reveal>
 
-        <h1 className="font-display font-extrabold leading-[0.9] tracking-tight">
+        <h1 className="font-display font-extrabold leading-[1.2] tracking-tight">
           <Reveal delay={0.05}>
             <span className="block text-[clamp(2.7rem,8.5vw,7rem)]">HIGHTHON :</span>
           </Reveal>

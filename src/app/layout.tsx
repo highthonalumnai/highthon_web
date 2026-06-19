@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
@@ -39,6 +39,12 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     siteName: "HIGHTHON",
   },
+};
+
+// iOS Safari가 상단 status bar/툴바를 채우는 색. 밝은 페이지 기준 기본값(흰색);
+// 다크 히어로 페이지(/homecoming, /homecoming/sponsor)에서 개별 override.
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({

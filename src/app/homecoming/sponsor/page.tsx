@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { HcSponsorHero } from "@/components/homecoming/HcSponsorHero";
 import { HcValue } from "@/components/homecoming/HcValue";
 import { HcBenefits } from "@/components/homecoming/HcBenefits";
@@ -6,6 +6,11 @@ import { HcDonation } from "@/components/homecoming/HcDonation";
 import { HcContact } from "@/components/homecoming/HcContact";
 import { supabaseServer } from "@/lib/supabaseServer";
 import type { TicketSettings } from "@/lib/tickets";
+
+// 다크 히어로 — iOS Safari status bar를 히어로 배경색으로 채움
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+};
 
 export const metadata: Metadata = {
   title: "HOMECOMING DAY · 후원제안서",

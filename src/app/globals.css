@@ -81,14 +81,22 @@ body {
   font-family: var(--font-mono);
 }
 
-/* Outlined (hollow) letterforms — primary emphasis device */
+/* Highlighted letterforms — emphasis words sit on a filled block behind the
+   text. box-decoration-break: clone keeps the rounded fill per wrapped line. */
+.text-stroke,
+.text-stroke-paper {
+  display: inline;
+  padding: 0.05em 0.2em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
 .text-stroke {
-  -webkit-text-stroke: 1.6px var(--color-ink);
-  color: transparent;
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 .text-stroke-paper {
-  -webkit-text-stroke: 1.6px var(--color-paper);
-  color: transparent;
+  background: var(--color-paper);
+  color: var(--color-ink);
 }
 
 .eyebrow {

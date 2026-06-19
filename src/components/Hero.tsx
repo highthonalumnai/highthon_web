@@ -54,7 +54,7 @@ export function Hero() {
           <span className="eyebrow">고등학생 해커톤 · Since 2017</span>
         </motion.div>
 
-        <h1 className="font-display font-extrabold leading-[0.92] tracking-tight text-ink">
+        <h1 className="font-display font-extrabold leading-[1.2] tracking-tight text-ink">
           <motion.span
             {...stagger(1)}
             className="block text-[clamp(2.6rem,9vw,7.5rem)]"
