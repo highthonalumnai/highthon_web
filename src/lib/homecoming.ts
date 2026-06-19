@@ -15,11 +15,12 @@ export const HC_CONTACT = {
 export const HC_SPONSORS = ["AWS Korea"] as const;
 
 // 행사 장소 + 지도 길찾기
-const HC_ADDRESS = "서울시 강남구 테헤란로 231";
+const HC_ADDRESS = "서울시 강남구 테헤란로 231 센터필드 이스트 18층 AWS 코리아";
+const HC_MAP_QUERY = "서울시 강남구 테헤란로 231";
 export const HC_LOCATION = {
   address: HC_ADDRESS,
-  naverUrl: `https://map.naver.com/p/search/${encodeURIComponent(HC_ADDRESS)}`,
-  kakaoUrl: `https://map.kakao.com/?q=${encodeURIComponent(HC_ADDRESS)}`,
+  naverUrl: `https://map.naver.com/p/search/${encodeURIComponent(HC_MAP_QUERY)}`,
+  kakaoUrl: `https://map.kakao.com/?q=${encodeURIComponent(HC_MAP_QUERY)}`,
 } as const;
 
 export const HC_NAV = [
