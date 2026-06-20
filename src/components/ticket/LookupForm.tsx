@@ -23,7 +23,7 @@ function TicketCard({ ticket }: { ticket: Ticket }) {
       <p className="mt-3 text-[13px] leading-relaxed opacity-80">{meta.desc}</p>
       <p className="mt-2 text-[13px] font-medium opacity-70">
         {ticket.name} · {ticket.high_school}
-        {ticket.afterparty && ` · 뒤풀이 참가 (보증금 +${formatWon(AFTERPARTY_FEE)})`}
+        {ticket.afterparty && ` · 뒤풀이 참가 (참가비 +${formatWon(AFTERPARTY_FEE)})`}
       </p>
 
       {ticket.status === "pending" && (

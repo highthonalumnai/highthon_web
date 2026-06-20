@@ -128,7 +128,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
           {ticket.afterparty && (
             <div className="flex items-center justify-between gap-4 border-t border-line pt-3">
               <dt className="text-faint">뒤풀이</dt>
-              <dd className="font-medium text-ink">참가 (보증금 +{formatWon(AFTERPARTY_FEE)})</dd>
+              <dd className="font-medium text-ink">참가 (참가비 +{formatWon(AFTERPARTY_FEE)})</dd>
             </div>
           )}
           <div className="flex items-center justify-between gap-4 border-t border-line pt-3">
@@ -155,8 +155,8 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
             <br />· 입력하신 이메일·전화번호와 예약 번호로 예약 상태를 조회할 수 있습니다.
             {ticket.afterparty && (
               <>
-                <br />· 뒤풀이 보증금 <b className="text-ink">{formatWon(AFTERPARTY_FEE)}</b>은
-                뒤풀이 참석 시 현장에서 그대로 돌려드립니다.
+                <br />· 뒤풀이 참가비 <b className="text-ink">{formatWon(AFTERPARTY_FEE)}</b>은
+                위 입금 금액에 포함되어 있습니다.
               </>
             )}
           </p>
@@ -330,10 +330,10 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
               className="mt-0.5 h-4 w-4 accent-ink"
             />
             <span>
-              <b className="text-ink">뒤풀이 참가 (+{formatWon(AFTERPARTY_FEE)} 보증금)</b>
+              <b className="text-ink">뒤풀이 참가 (+{formatWon(AFTERPARTY_FEE)} 참가비)</b>
               <br />
-              추가되는 {formatWon(AFTERPARTY_FEE)}은 <b className="text-ink">보증금</b>으로,
-              뒤풀이에 참석하시면 현장에서 그대로 돌려드립니다.
+              추가되는 {formatWon(AFTERPARTY_FEE)}은 뒤풀이{" "}
+              <b className="text-ink">참가비</b>로, 입금 금액에 함께 포함됩니다.
             </span>
           </label>
 

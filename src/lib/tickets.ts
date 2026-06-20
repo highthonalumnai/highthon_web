@@ -25,8 +25,8 @@ export const reserveSchema = z.object({
   affiliation: z.string().trim().min(1, "소속을 입력해 주세요.").max(80),
 });
 
-/** 뒤풀이 참가 시 티켓 금액에 더해지는 추가금 (원). */
-export const AFTERPARTY_FEE = 10000;
+/** 뒤풀이 참가 시 티켓 금액에 더해지는 참가비 (원). */
+export const AFTERPARTY_FEE = 15000;
 
 export const lookupSchema = z.object({
   email: z.string().trim().email("올바른 이메일을 입력해 주세요.").max(254),
