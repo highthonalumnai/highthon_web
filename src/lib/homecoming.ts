@@ -130,8 +130,7 @@ export const HC_DIFFERENTIATION = [
 export const HC_SCHEDULE = [
   { time: "12:15 – 01:00", program: "참가자 신청 등록", detail: "등록, 착석, 서브스트림 관람" },
   { time: "01:00 – 01:20", program: "키노트", detail: "행사 소개, CoC 안내, 후원사 소개" },
-  { time: "01:20 – 01:40", program: "아이스브레이킹 (전체)", detail: "Kahoot 퀴즈, 빙고 등" },
-  { time: "01:40 – 02:10", program: "아이스브레이킹 (조별)", detail: "자기소개, 진실 혹은 거짓" },
+  { time: "01:20 – 02:10", program: "아이스브레이킹", detail: "조별 아이스브레이킹" },
   { time: "02:10 – 02:30", program: "쉬는 시간", detail: "(후원사 및 서브 스트림 확인 가능)", muted: true },
   { time: "02:30 – 04:10", program: "라이트닝 토크", detail: "참가자 30분 발표 및 조별 토크" },
   { time: "04:10 – 04:30", program: "쉬는 시간", detail: "(후원사 및 서브 스트림 확인 가능)", muted: true },
