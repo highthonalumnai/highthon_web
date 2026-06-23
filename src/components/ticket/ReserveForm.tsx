@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowUpRight, Check, Copy, Landmark } from "lucide-react";
 import { Countdown } from "./Countdown";
 import {
-  AFTERPARTY_FEE,
   YEARS_OPTIONS,
   formatWon,
   type Ticket,
@@ -51,7 +50,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
   const [ticket, setTicket] = useState<Ticket | null>(null);
 
   const soldOut = settings.sold_out;
-  const total = settings.price + (afterparty ? AFTERPARTY_FEE : 0);
+  const total = settings.price;
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -128,7 +127,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
           {ticket.afterparty && (
             <div className="flex items-center justify-between gap-4 border-t border-line pt-3">
               <dt className="text-faint">뒤풀이</dt>
-              <dd className="font-medium text-ink">참가 (참가비 +{formatWon(AFTERPARTY_FEE)})</dd>
+              <dd className="font-medium text-ink">참가</dd>
             </div>
           )}
           <div className="flex items-center justify-between gap-4 border-t border-line pt-3">
@@ -155,8 +154,8 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
             <br />· 입력하신 이메일·전화번호와 예약 번호로 예약 상태를 조회할 수 있습니다.
             {ticket.afterparty && (
               <>
-                <br />· 뒤풀이 참가비 <b className="text-ink">{formatWon(AFTERPARTY_FEE)}</b>은
-                위 입금 금액에 포함되어 있습니다.
+                <br />· 뒤풀이 참가비는 <b className="text-ink">수요 예측 후</b> 추가 입금 안내
+                메일을 보내드립니다. (위 입금 금액에 미포함)
               </>
             )}
           </p>
@@ -330,10 +329,10 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
               className="mt-0.5 h-4 w-4 accent-ink"
             />
             <span>
-              <b className="text-ink">뒤풀이 참가 (+{formatWon(AFTERPARTY_FEE)} 참가비)</b>
+              <b className="text-ink">뒤풀이 참가</b>
               <br />
-              추가되는 {formatWon(AFTERPARTY_FEE)}은 뒤풀이{" "}
-              <b className="text-ink">참가비</b>로, 입금 금액에 함께 포함됩니다.
+              뒤풀이 참가비는 수요 예측 후 별도로 안내드리며, 추가 입금 방법은{" "}
+              <b className="text-ink">이메일</b>로 보내드립니다.
             </span>
           </label>
 
