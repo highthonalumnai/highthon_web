@@ -228,6 +228,13 @@ function Row({
           </div>
         )}
       </td>
+      <td className="py-3 pr-3 text-sm">
+        {t.afterparty ? (
+          <span className="font-bold text-ink">O</span>
+        ) : (
+          <span className="text-faint">—</span>
+        )}
+      </td>
       <td className="py-3 pr-3 text-sm text-muted">{formatWon(t.amount)}</td>
       <td className="py-3 pr-3 text-right">
         <div className="inline-flex gap-2">
@@ -514,6 +521,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
               <th className="px-4 py-3">번호</th>
               <th className="px-4 py-3">상태</th>
               <th className="px-4 py-3">예약자</th>
+              <th className="px-4 py-3">뒤풀이</th>
               <th className="px-4 py-3">금액</th>
               <th className="px-4 py-3 text-right">처리</th>
             </tr>
@@ -521,13 +529,13 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           <tbody className="bg-paper [&_td:first-child]:pl-4 [&_td:last-child]:pr-4">
             {loading ? (
               <tr>
-                <td colSpan={5} className="px-4 py-10 text-center text-sm text-faint">
+                <td colSpan={6} className="px-4 py-10 text-center text-sm text-faint">
                   불러오는 중…
                 </td>
               </tr>
             ) : tickets.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-10 text-center text-sm text-faint">
+                <td colSpan={6} className="px-4 py-10 text-center text-sm text-faint">
                   예약이 없습니다.
                 </td>
               </tr>
