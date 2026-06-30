@@ -22,7 +22,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "HOMECOMING DAY · 참가 신청",
   description:
-    "하이톤을 기억하는 성인들을 위한 네트워킹 밋업, HIGHTHON : HOMECOMING DAY. 2026년 7월 25일 개최. 현업 IT 전문가가 된 하이톤 출신들이 다시 모이는 하루, 지금 참가 신청하세요.",
+    "하이톤을 기억하는 성인들을 위한 네트워킹 밋업, HIGHTHON : HOMECOMING DAY. 2026년 7월 25일 개최. 현업 IT 전문가가 된 이들이 다시 모이는 하루, 지금 참가 신청하세요.",
   openGraph: {
     title: "HIGHTHON : HOMECOMING DAY · 참가 신청",
     description:

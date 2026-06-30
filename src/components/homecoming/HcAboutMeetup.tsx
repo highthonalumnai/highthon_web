@@ -32,6 +32,11 @@ export function HcAboutMeetup() {
             시너지를 내는, 검증된 인재들의 네트워크입니다.
           </p>
         </Reveal>
+        <Reveal delay={0.16}>
+          <p className="mx-auto mt-6 max-w-xl text-xs leading-relaxed text-paper/40 sm:text-[13px]">
+            ※ 코딩 대회나 해커톤 행사가 아닌, 참가자들을 위한 네트워킹 밋업입니다.
+          </p>
+        </Reveal>
       </div>
     </section>
   );

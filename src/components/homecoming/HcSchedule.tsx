@@ -27,7 +27,7 @@ export function HcSchedule() {
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-xs text-[15px] leading-relaxed text-muted">
-                등록부터 키노트, 라이트닝 토크, 자유 네트워킹, 경품 세션까지 — 하루
+                등록부터 키노트, 발표 세션, 자유 네트워킹, 경품 세션까지 — 하루
                 전체가 연결을 위해 설계되어 있습니다.
               </p>
             </Reveal>

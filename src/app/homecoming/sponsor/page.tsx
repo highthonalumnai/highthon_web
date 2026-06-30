@@ -15,7 +15,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "HOMECOMING DAY · 후원제안서",
   description:
-    "하이톤을 기억하는 성인들을 위한 네트워킹 밋업, HIGHTHON : HOMECOMING DAY. 2026년 7월 25일 개최. 현업 IT 전문가가 된 100여 명의 하이톤 출신 인재 네트워크에 귀사를 파트너로 초대합니다.",
+    "하이톤을 기억하는 성인들을 위한 네트워킹 밋업, HIGHTHON : HOMECOMING DAY. 2026년 7월 25일 개최. 현업 IT 전문가가 된 100여 명의 인재 네트워크에 귀사를 파트너로 초대합니다.",
   openGraph: {
     title: "HIGHTHON : HOMECOMING DAY · 후원제안서",
     description:

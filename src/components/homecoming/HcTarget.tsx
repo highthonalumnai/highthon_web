@@ -39,7 +39,7 @@ export function HcTarget() {
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">
-                당신처럼 일찍 IT 진로를 택한 하이톤 출신이라면 누구나 환영합니다.
+                당신처럼 일찍 IT 진로를 택한 사람이라면 누구나 환영합니다.
                 100명의 참가자와 10명의 운영진이 함께 만드는 하루입니다.
               </p>
             </Reveal>

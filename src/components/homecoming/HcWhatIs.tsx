@@ -20,7 +20,7 @@ export function HcWhatIs() {
               <h2 className="mt-5 font-display text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
                 학생이 만들고,
                 <br />
-                <span className="text-stroke">학생이 키운 7년.</span>
+                <span className="text-stroke">학생이 키운 9년.</span>
               </h2>
             </Reveal>
             <Reveal delay={0.1}>

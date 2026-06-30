@@ -36,7 +36,7 @@ export const HC_PARTICIPANT_BENEFITS = [
   {
     no: "01",
     title: "같은 출발선의 네트워크",
-    body: "일찍 IT 진로를 택한 하이톤 출신들이 모입니다. 비슷한 추억과 관점을 공유해 첫 대화부터 깊이가 다릅니다.",
+    body: "일찍 IT 진로를 택한 사람들이 모입니다. 비슷한 추억과 관점을 공유해 첫 대화부터 깊이가 다릅니다.",
   },
   {
     no: "02",
@@ -45,8 +45,8 @@ export const HC_PARTICIPANT_BENEFITS = [
   },
   {
     no: "03",
-    title: "라이트닝 토크 발표 기회",
-    body: "원한다면 30분 라이트닝 토크로 당신의 경험과 관점을 100여 명 앞에서 공유할 수 있습니다.",
+    title: "발표 세션 기회",
+    body: "원한다면 30분 발표 세션으로 당신의 경험과 관점을 100여 명 앞에서 공유할 수 있습니다.",
   },
   {
     no: "04",
@@ -68,10 +68,6 @@ export const HC_FAQ = [
   {
     q: "예약은 어떻게 진행되나요?",
     a: "‘티켓 예약’에서 이메일과 전화번호를 입력하면 4자리 예약 번호가 발급됩니다. 정원 100명 한정이며, ‘예약 조회’에서 언제든 상태를 확인할 수 있습니다.",
-  },
-  {
-    q: "라이트닝 토크는 어떻게 신청하나요?",
-    a: "당일 라이트닝 토크 세션(오후)에서 참가자가 30분간 발표합니다. 발표를 원하시면 예약 후 운영진 안내에 따라 사전 신청해 주세요.",
   },
   {
     q: "뒷풀이도 있나요?",
@@ -128,22 +124,22 @@ export const HC_DIFFERENTIATION = [
 ] as const;
 
 export const HC_SCHEDULE = [
-  { time: "12:15 – 01:00", program: "참가자 신청 등록", detail: "등록, 착석, 서브스트림 관람" },
-  { time: "01:00 – 01:20", program: "키노트", detail: "행사 소개, CoC 안내, 후원사 소개" },
-  { time: "01:20 – 02:10", program: "아이스브레이킹", detail: "조별 아이스브레이킹" },
-  { time: "02:10 – 02:30", program: "쉬는 시간", detail: "", muted: true },
-  { time: "02:30 – 04:10", program: "라이트닝 토크", detail: "참가자 30분 발표 및 조별 토크" },
-  { time: "04:10 – 04:30", program: "쉬는 시간", detail: "", muted: true },
-  { time: "04:30 – 05:30", program: "자유 네트워킹", detail: "자유로운 소통 및 그룹 형성" },
-  { time: "05:30 – 05:50", program: "경품 세션", detail: "후원사 경품 등 경품 추첨을 통해 증정" },
-  { time: "05:50 – 06:00", program: "행사 마무리", detail: "단체 사진, 만족도 설문" },
-  { time: "06:00 –", program: "뒷풀이", detail: "사전 신청자 대상" },
+  { time: "12:15 – 13:00", program: "참가자 신청 등록", detail: "등록, 착석, 서브스트림 관람" },
+  { time: "13:00 – 13:20", program: "키노트", detail: "행사 소개, CoC 안내, 후원사 소개" },
+  { time: "13:20 – 14:10", program: "아이스브레이킹", detail: "조별 아이스브레이킹" },
+  { time: "14:10 – 14:30", program: "쉬는 시간", detail: "", muted: true },
+  { time: "14:30 – 16:10", program: "발표 세션", detail: "참가자 30분 발표 및 조별 토크" },
+  { time: "16:10 – 16:30", program: "쉬는 시간", detail: "", muted: true },
+  { time: "16:30 – 17:30", program: "자유 네트워킹", detail: "자유로운 소통 및 그룹 형성" },
+  { time: "17:30 – 17:50", program: "경품 세션", detail: "후원사 경품 등 경품 추첨을 통해 증정" },
+  { time: "17:50 – 18:00", program: "행사 마무리", detail: "단체 사진, 만족도 설문" },
+  { time: "18:00 –", program: "뒷풀이", detail: "사전 신청자 대상" },
 ] as const;
 
 export const HC_STREAMS = [
   {
     key: "MAIN STREAM",
-    body: "키노트, 아이스브레이킹, 라이트닝 토크, 자유 네트워킹 등 행사의 핵심 세션입니다.",
+    body: "키노트, 아이스브레이킹, 발표 세션, 자유 네트워킹 등 행사의 핵심 세션입니다.",
   },
   {
     key: "SUB STREAM",
@@ -160,6 +156,6 @@ export const HC_BENEFITS = [
 
 export const HC_SPONSOR_ROOM = [
   { label: "기업 참여 부스", note: "all-time" },
-  { label: "라이트닝 토크", note: "10분 (2:50–4:30 내)" },
-  { label: "경품 세션", note: "20분 (5:30–5:50 내)" },
+  { label: "발표 세션", note: "10분 (14:50–16:30 내)" },
+  { label: "경품 세션", note: "20분 (17:30–17:50 내)" },
 ] as const;
