@@ -128,7 +128,7 @@ export const HC_SCHEDULE = [
   { time: "13:00 – 13:20", program: "키노트", detail: "행사 소개, CoC 안내, 후원사 소개" },
   { time: "13:20 – 14:10", program: "아이스브레이킹", detail: "조별 아이스브레이킹" },
   { time: "14:10 – 14:30", program: "쉬는 시간", detail: "", muted: true },
-  { time: "14:30 – 16:10", program: "발표 세션", detail: "참가자 30분 발표 및 조별 토크" },
+  { time: "14:30 – 16:10", program: "발표 세션", detail: "연사자 발표" },
   { time: "16:10 – 16:30", program: "쉬는 시간", detail: "", muted: true },
   { time: "16:30 – 17:30", program: "자유 네트워킹", detail: "자유로운 소통 및 그룹 형성" },
   { time: "17:30 – 17:50", program: "경품 세션", detail: "후원사 경품 등 경품 추첨을 통해 증정" },
