@@ -17,8 +17,8 @@ export default function TicketCheckPage() {
         <span className="text-stroke">조회.</span>
       </h1>
       <p className="mt-5 max-w-md text-[15px] leading-relaxed text-muted">
-        예약 시 입력한 이메일·전화번호와 부여받은 4자리 예약 번호를 입력하면 예약
-        상태를 확인할 수 있습니다.
+        신청 시 입력한 이메일·전화번호와 부여받은 4자리 번호를 입력하면 티켓 예약
+        및 후원 내역의 상태를 확인할 수 있습니다.
       </p>
 
       <div className="mt-10">

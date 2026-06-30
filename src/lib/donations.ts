@@ -48,6 +48,16 @@ export type Donation = {
   bank_holder: string;
 };
 
+export const DONATION_STATUS_META: Record<
+  DonationStatus,
+  { label: string; tone: "wait" | "ok" | "dead"; desc: string }
+> = {
+  pending: { label: "입금 대기", tone: "wait", desc: "1시간 안에 입금하면 후원이 확정됩니다." },
+  confirmed: { label: "후원 확정", tone: "ok", desc: "입금이 확인되어 후원이 완료되었습니다." },
+  cancelled: { label: "후원 취소", tone: "dead", desc: "취소된 후원입니다." },
+  expired: { label: "기간 만료", tone: "dead", desc: "입금 기한(1시간)이 지나 후원이 만료되었습니다." },
+};
+
 /** Maps DB RPC error messages → user-facing Korean copy. */
 export const DONATION_ERRORS: Record<string, string> = {
   SOLD_OUT: "현장 참여 좌석이 마감되었습니다. 현장 참여 없이 후원하시거나 잠시 후 다시 시도해 주세요.",

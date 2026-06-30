@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Countdown } from "./Countdown";
 import { formatWon, STATUS_META, type Ticket } from "@/lib/tickets";
+import { DONATION_STATUS_META, type Donation } from "@/lib/donations";
 
 const TONE: Record<string, string> = {
   wait: "border-line-strong bg-paper text-ink",
@@ -57,31 +58,88 @@ function TicketCard({ ticket }: { ticket: Ticket }) {
   );
 }
 
+function DonationCard({ donation }: { donation: Donation }) {
+  const meta = DONATION_STATUS_META[donation.status];
+  return (
+    <div className={`rounded-2xl border p-6 ${TONE[meta.tone]}`}>
+      <div className="flex items-center justify-between">
+        <span className="font-mono text-xs uppercase tracking-widest opacity-70">
+          후원 번호 {donation.code}
+        </span>
+        <span className="font-display text-sm font-bold">{meta.label}</span>
+      </div>
+      <p className="mt-3 text-[13px] leading-relaxed opacity-80">{meta.desc}</p>
+      <p className="mt-2 text-[13px] font-medium opacity-70">
+        {donation.name}
+        {donation.attend && ` · 현장참여`}
+      </p>
+
+      {donation.status === "pending" && (
+        <div className="mt-4 space-y-2 border-t border-current/15 pt-4 text-[13px]">
+          {donation.expires_at && (
+            <div className="flex justify-between">
+              <span className="opacity-60">입금 마감까지</span>
+              <span className="font-display font-bold">
+                <Countdown expiresAt={donation.expires_at} />
+              </span>
+            </div>
+          )}
+          <div className="flex justify-between">
+            <span className="opacity-60">입금 금액</span>
+            <span className="font-medium">{formatWon(donation.amount)}</span>
+          </div>
+          <div className="flex justify-between gap-3">
+            <span className="opacity-60">입금 계좌</span>
+            <span className="text-right font-medium">
+              {donation.bank_name} {donation.bank_account} ({donation.bank_holder})
+            </span>
+          </div>
+        </div>
+      )}
+
+      {donation.status === "confirmed" && (
+        <div className="mt-4 flex justify-between border-t border-current/15 pt-4 text-[13px]">
+          <span className="opacity-70">후원 금액</span>
+          <span className="font-medium">{formatWon(donation.amount)}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function LookupForm() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<Ticket[] | null>(null);
+  const [tickets, setTickets] = useState<Ticket[] | null>(null);
+  const [donations, setDonations] = useState<Donation[] | null>(null);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    setResult(null);
+    setTickets(null);
+    setDonations(null);
     setLoading(true);
     try {
-      const res = await fetch("/api/tickets/lookup", {
+      const payload = JSON.stringify({ email, phone, code });
+      const opts = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone, code }),
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        setError(json.error ?? "조회에 실패했습니다.");
+        body: payload,
+      };
+      const [tRes, dRes] = await Promise.all([
+        fetch("/api/tickets/lookup", opts),
+        fetch("/api/donations/lookup", opts),
+      ]);
+      const [tJson, dJson] = await Promise.all([tRes.json(), dRes.json()]);
+      if (!tRes.ok || !dRes.ok) {
+        setError(tJson.error ?? dJson.error ?? "조회에 실패했습니다.");
         return;
       }
-      setResult(json.tickets as Ticket[]);
+      setTickets(tJson.tickets as Ticket[]);
+      setDonations(dJson.donations as Donation[]);
     } catch {
       setError("네트워크 오류가 발생했습니다.");
     } finally {
@@ -152,14 +210,21 @@ export function LookupForm() {
         </div>
       </form>
 
-      {result !== null && (
+      {tickets !== null && donations !== null && (
         <div className="mt-6 space-y-4">
-          {result.length === 0 ? (
+          {tickets.length === 0 && donations.length === 0 ? (
             <p className="rounded-2xl border border-line bg-surface/60 p-6 text-center text-sm text-muted">
-              일치하는 예약이 없습니다. 이메일·전화번호·예약 번호를 다시 확인해 주세요.
+              일치하는 예약·후원 내역이 없습니다. 이메일·전화번호·번호를 다시 확인해 주세요.
             </p>
           ) : (
-            result.map((t) => <TicketCard key={t.id} ticket={t} />)
+            <>
+              {tickets.map((t) => (
+                <TicketCard key={t.id} ticket={t} />
+              ))}
+              {donations.map((d) => (
+                <DonationCard key={d.id} donation={d} />
+              ))}
+            </>
           )}
         </div>
       )}
