@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
 
@@ -64,6 +65,7 @@ export default function RootLayout({
       </head>
       <body className="grain min-h-full">
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
