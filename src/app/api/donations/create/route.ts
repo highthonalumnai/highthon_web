@@ -24,6 +24,7 @@ export async function POST(request: Request) {
     p_phone: parsed.data.phone,
     p_amount: parsed.data.amount,
     p_attend: parsed.data.attend,
+    p_afterparty: parsed.data.afterparty,
     p_wants_benefit: parsed.data.wants_benefit,
     p_benefit: parsed.data.benefit,
   });

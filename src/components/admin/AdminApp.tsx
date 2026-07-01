@@ -292,6 +292,9 @@ function DonationRow({
           {d.attend && (
             <span className="ml-1.5 font-normal text-muted">· 현장참여</span>
           )}
+          {d.afterparty && (
+            <span className="ml-1.5 font-normal text-muted">· 뒤풀이</span>
+          )}
         </div>
         <div className="text-ink">{d.email}</div>
         <div className="text-faint">{formatPhone(d.phone)}</div>

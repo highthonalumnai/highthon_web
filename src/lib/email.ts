@@ -90,6 +90,7 @@ export async function sendDonationConfirmedEmail(donation: Donation): Promise<vo
     row("성함", donation.name),
     row("확정 금액", formatWon(donation.amount)),
     row("현장 참여", donation.attend ? "참여" : "미참여"),
+    row("뒤풀이", donation.afterparty ? "참석 신청" : "미신청"),
   ].join("");
 
   const html = shell(`

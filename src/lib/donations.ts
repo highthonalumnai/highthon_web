@@ -17,6 +17,7 @@ export const donationSchema = z
       .int("후원 금액을 정수로 입력해 주세요.")
       .min(DONATION_MIN, `최소 ${DONATION_MIN.toLocaleString("ko-KR")}원부터 후원할 수 있습니다.`),
     attend: z.boolean().optional().default(false),
+    afterparty: z.boolean().optional().default(false),
     wants_benefit: z.boolean().optional().default(false),
     benefit: z.string().trim().max(1000).optional().default(""),
   })
@@ -36,6 +37,7 @@ export type Donation = {
   phone: string;
   name: string;
   attend: boolean;
+  afterparty: boolean;
   wants_benefit: boolean;
   benefit: string;
   source: "standalone" | "ticket";

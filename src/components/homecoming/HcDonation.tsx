@@ -37,6 +37,7 @@ export function HcDonation({ settings }: { settings: TicketSettings }) {
   const [phone, setPhone] = useState("");
   const [amount, setAmount] = useState("");
   const [attend, setAttend] = useState(false);
+  const [afterparty, setAfterparty] = useState(false);
   const [wantsBenefit, setWantsBenefit] = useState(false);
   const [benefit, setBenefit] = useState("");
   const [loading, setLoading] = useState(false);
@@ -52,6 +53,7 @@ export function HcDonation({ settings }: { settings: TicketSettings }) {
     setPhone("");
     setAmount("");
     setAttend(false);
+    setAfterparty(false);
     setWantsBenefit(false);
     setBenefit("");
   }
@@ -70,6 +72,7 @@ export function HcDonation({ settings }: { settings: TicketSettings }) {
           phone,
           amount: Number(amount),
           attend,
+          afterparty,
           wants_benefit: wantsBenefit,
           benefit,
         }),
@@ -215,6 +218,21 @@ export function HcDonation({ settings }: { settings: TicketSettings }) {
                   <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-line bg-paper px-4 py-3.5 text-[13px] leading-relaxed text-muted transition hover:border-ink/40">
                     <input
                       type="checkbox"
+                      checked={afterparty}
+                      onChange={(e) => setAfterparty(e.target.checked)}
+                      className="mt-0.5 h-4 w-4 accent-ink"
+                    />
+                    <span>
+                      <b className="text-ink">뒤풀이 참가</b>
+                      <br />
+                      뒤풀이 참가비는 수요 예측 후 별도로 안내드리며, 추가 입금 방법은{" "}
+                      <b className="text-ink">이메일</b>로 보내드립니다.
+                    </span>
+                  </label>
+
+                  <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-line bg-paper px-4 py-3.5 text-[13px] leading-relaxed text-muted transition hover:border-ink/40">
+                    <input
+                      type="checkbox"
                       checked={wantsBenefit}
                       onChange={(e) => setWantsBenefit(e.target.checked)}
                       className="mt-0.5 h-4 w-4 accent-ink"
@@ -322,6 +340,10 @@ function DonationResult({
         <div className="flex items-center justify-between gap-4 border-t border-line pt-3">
           <dt className="text-faint">현장 참여</dt>
           <dd className="font-medium text-ink">{donation.attend ? "참여" : "미참여"}</dd>
+        </div>
+        <div className="flex items-center justify-between gap-4 border-t border-line pt-3">
+          <dt className="text-faint">뒤풀이</dt>
+          <dd className="font-medium text-ink">{donation.afterparty ? "참가" : "미참가"}</dd>
         </div>
         {donation.wants_benefit && donation.benefit && (
           <div className="flex items-start justify-between gap-4 border-t border-line pt-3">
