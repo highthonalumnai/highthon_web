@@ -380,9 +380,12 @@ git commit -m "feat: hc type-test data model + client scoring engine with tests"
 **Interfaces:**
 - Consumes: `getType`, `HC_TYPE_MAP`, `HcType` (Task 1)
 - Produces:
+  - `const HC_CARD_CONFIG` — 카드 브랜드 문구·날짜·핸들·직군 라벨·사이즈(`ogSize`/`storySize`). 변경 용이성을 위한 단일 설정점.
   - `async function typeCardImageResponse(type: HcType, size: { width: number; height: number }): Promise<ImageResponse>` — `next/og`로 유형별 카드 렌더. OG(1200×630)·스토리(1080×1350) 공용.
 
 > 참고 패턴: 기존 `src/app/homecoming/opengraph-image.tsx`가 `ImageResponse` + `readFile`로 로고를 base64 임베드한다. 동일 방식 사용. ImageResponse JSX는 Tailwind가 아니라 **인라인 style**만 지원.
+
+> **변경 용이성(OG easy-to-change) 원칙**: 카드의 브랜드 문구·날짜·핸들·크기 등 "자주 바꾸는 값"은 파일 상단 `HC_CARD_CONFIG` 한 곳에 모은다. 레이아웃 JSX는 이 상수만 참조하므로, 문구·색·크기 수정 시 JSX를 헤집지 않고 config만 고치면 된다. OG(가로)·스토리(세로) 사이즈도 여기서 export 해 라우트가 재사용한다.
 
 - [ ] **Step 1: 공유 카드 이미지 헬퍼** — `src/lib/hcTypeCardImage.tsx`
 
@@ -392,14 +395,26 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { HC_TYPE_MAP, type HcType } from "./hcTypeTest";
 
-const JOB_LABEL: Record<HcType["job"], string> = {
-  dev: "개발자", design: "디자이너", plan: "기획자", all: "공용",
-};
+/**
+ * 카드에서 자주 바꾸는 값은 전부 여기 모음 (레이아웃 JSX는 이 값만 참조).
+ * 문구/날짜/핸들/크기 변경 시 이 객체만 수정하면 됨.
+ */
+export const HC_CARD_CONFIG = {
+  brand: "HIGHTHON : HOMECOMING DAY",
+  eyebrow: "그때 우리 팀의",
+  eventDate: "2026.07.25 SAT",
+  handle: "@highthon_homecomingday",
+  jobLabel: { dev: "개발자", design: "디자이너", plan: "기획자", all: "공용" } as Record<HcType["job"], string>,
+  /** 공유 이미지 사이즈 — 라우트가 재사용 */
+  ogSize: { width: 1200, height: 630 },
+  storySize: { width: 1080, height: 1350 },
+} as const;
 
 export async function typeCardImageResponse(
   type: HcType,
   size: { width: number; height: number },
 ): Promise<ImageResponse> {
+  const cfg = HC_CARD_CONFIG;
   const logo = await readFile(join(process.cwd(), "public/homecoming/logo.png"));
   const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
   const fg = type.textOnColor === "paper" ? "#ffffff" : "#0a0a0a";
@@ -417,15 +432,15 @@ export async function typeCardImageResponse(
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 26, fontWeight: 700, opacity: 0.8 }}>
-          <span>HIGHTHON : HOMECOMING DAY</span>
+          <span>{cfg.brand}</span>
           <span style={{ background: fg, color: type.color, padding: "6px 20px", borderRadius: 999, fontSize: 24 }}>
-            {JOB_LABEL[type.job]}
+            {cfg.jobLabel[type.job]}
           </span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
           <div style={{ fontSize: isPortrait ? 180 : 130 }}>{type.emoji}</div>
-          <div style={{ fontSize: 30, fontWeight: 600, opacity: 0.7 }}>그때 우리 팀의</div>
+          <div style={{ fontSize: 30, fontWeight: 600, opacity: 0.7 }}>{cfg.eyebrow}</div>
           <div style={{ fontSize: isPortrait ? 88 : 74, fontWeight: 800, textAlign: "center", lineHeight: 1.1 }}>
             {type.name}
           </div>
@@ -448,9 +463,9 @@ export async function typeCardImageResponse(
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 24, fontWeight: 700, opacity: 0.85 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
               <img src={logoSrc} width={44} height={44} alt="" />
-              <span>2026.07.25 SAT</span>
+              <span>{cfg.eventDate}</span>
             </div>
-            <span>@highthon_homecomingday</span>
+            <span>{cfg.handle}</span>
           </div>
         </div>
       </div>
@@ -464,10 +479,10 @@ export async function typeCardImageResponse(
 
 ```tsx
 import { getType, HC_TYPES } from "@/lib/hcTypeTest";
-import { typeCardImageResponse } from "@/lib/hcTypeCardImage";
+import { typeCardImageResponse, HC_CARD_CONFIG } from "@/lib/hcTypeCardImage";
 
 export const alt = "HIGHTHON : HOMECOMING DAY — 나의 하이톤 유형";
-export const size = { width: 1200, height: 630 };
+export const size = HC_CARD_CONFIG.ogSize;
 export const contentType = "image/png";
 
 export function generateStaticParams() {
@@ -485,7 +500,7 @@ export default async function Image({ params }: { params: Promise<{ typeId: stri
 
 ```ts
 import { getType } from "@/lib/hcTypeTest";
-import { typeCardImageResponse } from "@/lib/hcTypeCardImage";
+import { typeCardImageResponse, HC_CARD_CONFIG } from "@/lib/hcTypeCardImage";
 
 // GET /homecoming/type/result/[typeId]/card → 세로 스토리 카드 PNG
 export async function GET(
@@ -495,7 +510,7 @@ export async function GET(
   const { typeId } = await ctx.params;
   const type = getType(typeId);
   if (!type) return new Response("Not found", { status: 404 });
-  return typeCardImageResponse(type, { width: 1080, height: 1350 });
+  return typeCardImageResponse(type, HC_CARD_CONFIG.storySize);
 }
 ```
 
