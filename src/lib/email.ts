@@ -14,6 +14,9 @@ const FROM = `"하이톤 홈커밍" <${process.env.GMAIL_USER ?? ""}>`;
 /** 홈커밍 안내 페이지 — 메일 내 바로가기 버튼 링크. */
 const SITE_URL = "https://highthon-web.vercel.app/homecoming";
 
+/** 후원 섹션 앵커 — 만료 안내 메일의 "다시 후원하기" 버튼 링크. */
+const DONATE_URL = "https://highthon-web.vercel.app/homecoming#donation";
+
 function mailer(): Transporter {
   if (transporter) return transporter;
   const user = process.env.GMAIL_USER;
@@ -41,13 +44,14 @@ function footer(): string {
   `;
 }
 
-function shell(inner: string): string {
+function shell(inner: string, cta?: { label: string; href: string }): string {
+  const { label, href } = cta ?? { label: "행사 안내 페이지 바로가기 →", href: SITE_URL };
   return `
   <div style="max-width:560px;margin:0 auto;padding:32px 24px;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Segoe UI',Roboto,sans-serif;color:#111827">
     <div style="font-size:13px;letter-spacing:0.08em;color:#2563eb;font-weight:700;margin-bottom:8px">HIGHTHON · HOMECOMING DAY</div>
     ${inner}
     <div style="margin:24px 0 4px">
-      <a href="${SITE_URL}" style="display:inline-block;background:#2563eb;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 24px;border-radius:8px">행사 안내 페이지 바로가기 →</a>
+      <a href="${href}" style="display:inline-block;background:#2563eb;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 24px;border-radius:8px">${label}</a>
     </div>
     ${footer()}
   </div>`;
@@ -106,6 +110,35 @@ export async function sendDonationConfirmedEmail(donation: Donation): Promise<vo
     from: FROM,
     to: donation.email,
     subject: "[하이톤 홈커밍] 후원이 확정되었습니다",
+    html,
+  });
+}
+
+/** 개인 후원 요청 만료 안내 메일 — 입금 기한(1시간) 초과로 자동 만료된 경우. */
+export async function sendDonationExpiredEmail(donation: Donation): Promise<void> {
+  const rows = [
+    donation.code ? row("후원 번호", donation.code) : "",
+    row("성함", donation.name),
+    row("신청 금액", formatWon(donation.amount)),
+  ].join("");
+
+  const html = shell(
+    `
+    <h1 style="font-size:22px;margin:0 0 12px">후원 요청이 만료되었습니다 ⏳</h1>
+    <p style="font-size:15px;color:#374151;line-height:1.7;margin:0 0 20px">
+      ${donation.name}님, 입금 기한(1시간) 안에 입금이 확인되지 않아
+      <strong>하이톤 홈커밍 데이</strong> 후원 요청이 자동으로 만료되었습니다.
+      다시 후원을 원하시면 아래 버튼에서 새로 신청해 주세요. 관심 가져주셔서 진심으로 감사드립니다.
+    </p>
+    <table style="font-size:15px;border-collapse:collapse;margin:0 0 8px">${rows}</table>
+  `,
+    { label: "다시 후원하기 →", href: DONATE_URL },
+  );
+
+  await mailer().sendMail({
+    from: FROM,
+    to: donation.email,
+    subject: "[하이톤 홈커밍] 후원 요청이 만료되었습니다",
     html,
   });
 }
