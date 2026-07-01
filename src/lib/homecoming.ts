@@ -12,7 +12,7 @@ export const HC_CONTACT = {
 } as const;
 
 // 확정 후원사 (히어로 배너 표시)
-export const HC_SPONSORS = ["AWS Korea"] as const;
+export const HC_SPONSORS = ["AWS Korea", "HanbitMedia"] as const;
 
 // 행사 장소 + 지도 길찾기
 const HC_ADDRESS = "서울시 강남구 테헤란로 231 센터필드 이스트 18층 AWS 코리아";

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ArrowDown, CalendarDays, MapPin } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { HC_EVENT, HC_SPONSORS, HC_LOCATION } from "@/lib/homecoming";
+import { HC_EVENT, HC_LOCATION } from "@/lib/homecoming";
 
 export function HcHero() {
   return (
@@ -102,13 +102,20 @@ export function HcHero() {
             <p className="text-center font-mono text-sm uppercase tracking-[0.3em] text-paper sm:text-base">
               Sponsored by
             </p>
-            <div className="mt-5 flex items-center justify-center">
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-8 sm:gap-12">
               <Image
                 src="/homecoming/aws-color.png"
-                alt={HC_SPONSORS.join(", ")}
+                alt="AWS Korea"
                 width={640}
                 height={640}
                 className="h-14 w-auto sm:h-16"
+              />
+              <Image
+                src="/homecoming/hanbit-media.png"
+                alt="HanbitMedia"
+                width={1171}
+                height={213}
+                className="h-10 w-auto sm:h-12"
               />
             </div>
           </div>
