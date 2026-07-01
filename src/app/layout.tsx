@@ -16,7 +16,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://highthon.kr"),
+  metadataBase: new URL("https://highthon-web.vercel.app"),
   title: {
     default: "HIGHTHON · 고등학생들만의 해커톤",
     template: "%s · HIGHTHON",
