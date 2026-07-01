@@ -5,6 +5,7 @@ import Link from "next/link";
 import { track } from "@vercel/analytics";
 import { ArrowUpRight, Check, Copy, Landmark } from "lucide-react";
 import { Countdown } from "./Countdown";
+import { DepositPausedNotice } from "./DepositPausedNotice";
 import {
   YEARS_OPTIONS,
   BIRTH_YEAR_OPTIONS,
@@ -111,6 +112,8 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
             {ticket.code}
           </p>
         </div>
+
+        {!already && <DepositPausedNotice className="mt-5" />}
 
         {!already && (
           <div className="mt-5 flex items-center justify-between rounded-xl border border-line bg-paper px-5 py-4">

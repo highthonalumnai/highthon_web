@@ -101,6 +101,22 @@ export function formatWon(n: number): string {
   return new Intl.NumberFormat("ko-KR").format(n) + "원";
 }
 
+/** 관리자 부재 야간대(00:00–10:00 KST)에는 입금 확인/만료가 멈추고 10시부터 재개된다. */
+export const DEPOSIT_RESUME_HOUR = 10; // KST
+
+/** 현재(또는 주어진 시각)가 야간 입금-확인 중단 시간대인지. KST 기준. */
+export function isDepositPausedNow(date: Date = new Date()): boolean {
+  const hour =
+    Number(
+      new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Seoul",
+        hour: "2-digit",
+        hour12: false,
+      }).format(date),
+    ) % 24; // 자정이 "24"로 나오는 환경 방어
+  return hour < DEPOSIT_RESUME_HOUR;
+}
+
 export function formatPhone(digits: string): string {
   const d = digits.replace(/\D/g, "");
   if (d.length === 11) return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7)}`;

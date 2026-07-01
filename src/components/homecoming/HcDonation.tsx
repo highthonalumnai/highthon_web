@@ -5,6 +5,7 @@ import { track } from "@vercel/analytics";
 import { ArrowUpRight, Check, Copy, HeartHandshake } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { Countdown } from "@/components/ticket/Countdown";
+import { DepositPausedNotice } from "@/components/ticket/DepositPausedNotice";
 import { formatWon, type TicketSettings } from "@/lib/tickets";
 import { DONATION_MIN, type Donation } from "@/lib/donations";
 import { HC_CONTACT } from "@/lib/homecoming";
@@ -322,6 +323,8 @@ function DonationResult({
           </p>
         </div>
       )}
+
+      {!reviewing && donation.expires_at && <DepositPausedNotice className="mt-5" />}
 
       {!reviewing && donation.expires_at && (
         <div className="mt-5 flex items-center justify-between rounded-xl border border-line bg-surface/60 px-5 py-4">

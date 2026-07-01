@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Countdown } from "./Countdown";
+import { DepositPausedNotice } from "./DepositPausedNotice";
 import { formatWon, STATUS_META, type Ticket } from "@/lib/tickets";
 import { DONATION_STATUS_META, type Donation } from "@/lib/donations";
 
@@ -29,6 +30,7 @@ function TicketCard({ ticket }: { ticket: Ticket }) {
 
       {ticket.status === "pending" && (
         <div className="mt-4 space-y-2 border-t border-current/15 pt-4 text-[13px]">
+          <DepositPausedNotice className="mb-1" />
           <div className="flex justify-between">
             <span className="opacity-60">입금 마감까지</span>
             <span className="font-display font-bold">
@@ -76,6 +78,7 @@ function DonationCard({ donation }: { donation: Donation }) {
 
       {donation.status === "pending" && (
         <div className="mt-4 space-y-2 border-t border-current/15 pt-4 text-[13px]">
+          {donation.expires_at && <DepositPausedNotice className="mb-1" />}
           {donation.expires_at && (
             <div className="flex justify-between">
               <span className="opacity-60">입금 마감까지</span>
