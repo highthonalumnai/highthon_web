@@ -6,6 +6,7 @@ import { ArrowUpRight, Check, Copy, Landmark } from "lucide-react";
 import { Countdown } from "./Countdown";
 import {
   YEARS_OPTIONS,
+  BIRTH_YEAR_OPTIONS,
   formatWon,
   type Ticket,
   type TicketSettings,
@@ -43,6 +44,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
   const [jobRole, setJobRole] = useState("");
   const [years, setYears] = useState("");
   const [affiliation, setAffiliation] = useState("");
+  const [birthYear, setBirthYear] = useState("");
   const [afterparty, setAfterparty] = useState(false);
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -73,6 +75,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
           job_role: jobRole,
           years,
           affiliation,
+          birth_year: birthYear,
         }),
       });
       const json = await res.json();
@@ -180,6 +183,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
               setJobRole("");
               setYears("");
               setAffiliation("");
+              setBirthYear("");
               setAfterparty(false);
               setAgree(false);
             }}
@@ -275,6 +279,31 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
             />
           </label>
           <label className="block">
+            <span className="font-mono text-xs uppercase tracking-widest text-muted">
+              출생 연도
+            </span>
+            <select
+              required
+              value={birthYear}
+              onChange={(e) => setBirthYear(e.target.value)}
+              className={`mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-ink ${
+                birthYear ? "text-ink" : "text-faint"
+              }`}
+            >
+              <option value="" disabled>
+                선택해 주세요
+              </option>
+              {BIRTH_YEAR_OPTIONS.map((y) => (
+                <option key={y} value={y} className="text-ink">
+                  {y}년생
+                </option>
+              ))}
+            </select>
+            <span className="mt-1.5 block text-[12px] text-faint">
+              04년생보다 어릴 경우 참가할 수 없습니다.
+            </span>
+          </label>
+          <label className="block">
             <span className="font-mono text-xs uppercase tracking-widest text-muted">직무</span>
             <input
               type="text"
@@ -317,7 +346,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
             />
           </label>
           <p className="rounded-lg border border-line bg-paper px-4 py-3 text-[12px] leading-relaxed text-faint">
-            입력하신 <b className="text-muted">직무·연차·소속</b>은 원활한 네트워킹을 위해
+            입력하신 <b className="text-muted">직무·연차·소속·출생 연도</b>는 원활한 네트워킹을 위해
             운영진만 활용하며, 다른 참가자에게는 공개되지 않습니다.
           </p>
 

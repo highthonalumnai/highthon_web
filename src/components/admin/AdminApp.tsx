@@ -222,9 +222,11 @@ function Row({
         </div>
         <div className="text-ink">{t.email}</div>
         <div className="text-faint">{formatPhone(t.phone)}</div>
-        {(t.job_role || t.years || t.affiliation) && (
+        {(t.job_role || t.years || t.affiliation || t.birth_year) && (
           <div className="mt-1 text-[13px] text-muted">
-            {[t.job_role, t.years, t.affiliation].filter(Boolean).join(" · ")}
+            {[t.job_role, t.years, t.affiliation, t.birth_year ? `${t.birth_year}년생` : null]
+              .filter(Boolean)
+              .join(" · ")}
           </div>
         )}
       </td>

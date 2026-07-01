@@ -27,6 +27,7 @@ export async function POST(request: Request) {
     p_job_role: parsed.data.job_role,
     p_years: parsed.data.years,
     p_affiliation: parsed.data.affiliation,
+    p_birth_year: parsed.data.birth_year,
   });
 
   if (error) {

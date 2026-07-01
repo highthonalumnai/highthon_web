@@ -10,6 +10,14 @@ export const YEARS_OPTIONS = [
   "10년 이상",
 ] as const;
 
+/** 출생 연도 참가 자격: 2004년생까지 참가 가능(더 어리면 불가). */
+export const BIRTH_YEAR_MAX = 2004;
+export const BIRTH_YEAR_MIN = 1990;
+export const BIRTH_YEAR_OPTIONS = Array.from(
+  { length: BIRTH_YEAR_MAX - BIRTH_YEAR_MIN + 1 },
+  (_, i) => BIRTH_YEAR_MAX - i,
+); // [2004, 2003, … 1980] 내림차순
+
 export const reserveSchema = z.object({
   email: z.string().trim().email("올바른 이메일을 입력해 주세요.").max(254),
   phone: z
@@ -23,6 +31,11 @@ export const reserveSchema = z.object({
   job_role: z.string().trim().min(1, "직무를 입력해 주세요.").max(60),
   years: z.enum(YEARS_OPTIONS, "연차를 선택해 주세요."),
   affiliation: z.string().trim().min(1, "소속을 입력해 주세요.").max(80),
+  birth_year: z.coerce
+    .number("출생 연도를 선택해 주세요.")
+    .int()
+    .min(BIRTH_YEAR_MIN, "출생 연도를 선택해 주세요.")
+    .max(BIRTH_YEAR_MAX, "2004년생까지 참가할 수 있습니다."),
 });
 
 export const lookupSchema = z.object({
@@ -53,6 +66,7 @@ export type Ticket = {
   job_role: string;
   years: string;
   affiliation: string;
+  birth_year: number | null;
   created_at: string;
   expires_at: string;
   confirmed_at: string | null;
@@ -104,5 +118,7 @@ export const RESERVE_ERRORS: Record<string, string> = {
   INVALID_JOB_ROLE: "직무를 입력해 주세요.",
   INVALID_YEARS: "연차를 선택해 주세요.",
   INVALID_AFFILIATION: "소속을 입력해 주세요.",
+  INVALID_BIRTH_YEAR: "출생 연도를 선택해 주세요.",
+  AGE_NOT_ELIGIBLE: "2004년생까지 참가할 수 있습니다.",
   CODE_GEN_FAILED: "예약 번호 생성에 실패했습니다. 잠시 후 다시 시도해 주세요.",
 };
