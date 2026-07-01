@@ -98,7 +98,7 @@ export function HcHero() {
             </a>
             <TrackedLink
               href="/homecoming/type"
-              event="type_test_start"
+              event="type_test_cta_click"
               eventData={{ location: "hc_hero" }}
               className="group inline-flex items-center gap-2 rounded-full border border-paper/30 px-7 py-3.5 font-mono text-sm uppercase tracking-wider text-paper transition hover:bg-paper hover:text-ink"
             >
