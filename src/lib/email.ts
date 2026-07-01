@@ -63,7 +63,7 @@ export async function sendTicketConfirmedEmail(ticket: Ticket): Promise<void> {
     row("예약 번호", ticket.code),
     row("성함", ticket.name),
     row("확정 금액", formatWon(ticket.amount)),
-    row("뒷풀이", ticket.afterparty ? "참석 신청" : "미신청"),
+    row("뒤풀이", ticket.afterparty ? "참석 신청" : "미신청"),
   ].join("");
 
   const html = shell(`
