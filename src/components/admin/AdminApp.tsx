@@ -16,6 +16,18 @@ type Settings = Pick<
   "price" | "capacity" | "reserved" | "remaining" | "bank_name" | "bank_account" | "bank_holder"
 >;
 
+/** 접수 시각 표시용 (KST 기준, 예: "07. 01. 14:30"). */
+function formatDateTime(iso: string): string {
+  return new Intl.DateTimeFormat("ko-KR", {
+    timeZone: "Asia/Seoul",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(new Date(iso));
+}
+
 function LoginScreen({ onSuccess }: { onSuccess: () => void }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -238,6 +250,9 @@ function Row({
         )}
       </td>
       <td className="py-3 pr-3 text-sm text-muted">{formatWon(t.amount)}</td>
+      <td className="py-3 pr-3 text-sm text-faint whitespace-nowrap">
+        {formatDateTime(t.created_at)}
+      </td>
       <td className="py-3 pr-3 text-right">
         <div className="inline-flex gap-2">
           {t.status === "pending" && (
@@ -307,6 +322,9 @@ function DonationRow({
         )}
       </td>
       <td className="py-3 pr-3 text-sm text-muted">{formatWon(d.amount)}</td>
+      <td className="py-3 pr-3 text-sm text-faint whitespace-nowrap">
+        {formatDateTime(d.created_at)}
+      </td>
       <td className="py-3 pr-3 text-right">
         <div className="inline-flex gap-2">
           {d.code == null && d.status === "pending" && (
@@ -528,19 +546,20 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
               <th className="px-4 py-3">예약자</th>
               <th className="px-4 py-3">뒤풀이</th>
               <th className="px-4 py-3">금액</th>
+              <th className="px-4 py-3">접수</th>
               <th className="px-4 py-3 text-right">처리</th>
             </tr>
           </thead>
           <tbody className="bg-paper [&_td:first-child]:pl-4 [&_td:last-child]:pr-4">
             {loading ? (
               <tr>
-                <td colSpan={6} className="px-4 py-10 text-center text-sm text-faint">
+                <td colSpan={7} className="px-4 py-10 text-center text-sm text-faint">
                   불러오는 중…
                 </td>
               </tr>
             ) : tickets.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-10 text-center text-sm text-faint">
+                <td colSpan={7} className="px-4 py-10 text-center text-sm text-faint">
                   예약이 없습니다.
                 </td>
               </tr>
@@ -610,19 +629,20 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
               <th className="px-4 py-3">상태</th>
               <th className="px-4 py-3">후원자</th>
               <th className="px-4 py-3">금액</th>
+              <th className="px-4 py-3">접수</th>
               <th className="px-4 py-3 text-right">처리</th>
             </tr>
           </thead>
           <tbody className="bg-paper [&_td:first-child]:pl-4 [&_td:last-child]:pr-4">
             {donLoading ? (
               <tr>
-                <td colSpan={5} className="px-4 py-10 text-center text-sm text-faint">
+                <td colSpan={6} className="px-4 py-10 text-center text-sm text-faint">
                   불러오는 중…
                 </td>
               </tr>
             ) : donations.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-10 text-center text-sm text-faint">
+                <td colSpan={6} className="px-4 py-10 text-center text-sm text-faint">
                   후원 내역이 없습니다.
                 </td>
               </tr>
