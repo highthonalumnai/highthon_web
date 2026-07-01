@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { track } from "@vercel/analytics";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { CONTACT_EMAIL } from "@/lib/links";
 
@@ -84,6 +85,7 @@ export function Hero() {
         <motion.div {...stagger(4)} className="mt-10 flex flex-wrap items-center gap-4">
           <a
             href={`mailto:${CONTACT_EMAIL}`}
+            onClick={() => track("contact_click", { location: "home_hero" })}
             className="group inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-paper transition hover:scale-[1.03] hover:bg-[#2c2c2c]"
           >
             참가 문의

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { track } from "@vercel/analytics";
 import { ArrowUpRight, Check, Copy, HeartHandshake } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { Countdown } from "@/components/ticket/Countdown";
@@ -83,6 +84,7 @@ export function HcDonation({ settings }: { settings: TicketSettings }) {
         return;
       }
       setDonation(json.donation as Donation);
+      track("donation_submit");
     } catch {
       setError("네트워크 오류가 발생했습니다.");
     } finally {

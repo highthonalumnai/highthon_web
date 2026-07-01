@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ArrowDown, ArrowLeft, CalendarDays } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
+import { TrackedLink } from "@/components/TrackedLink";
 import { HC_CONTACT, HC_EVENT } from "@/lib/homecoming";
 
 export function HcSponsorHero() {
@@ -76,13 +77,15 @@ export function HcSponsorHero() {
 
         <Reveal delay={0.32}>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <a
+            <TrackedLink
               href={`mailto:${HC_CONTACT.email}?subject=하이톤 홈커밍데이 기업 후원 문의`}
+              event="sponsor_inquiry_click"
+              eventData={{ location: "sponsor_hero" }}
               className="group inline-flex items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-ink transition hover:scale-[1.03] hover:bg-[#e5e5e5]"
             >
               기업 후원 문의
               <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
+            </TrackedLink>
             <a
               href="#donation"
               className="group inline-flex items-center gap-2 rounded-full border border-paper/30 px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-paper transition hover:bg-paper hover:text-ink"

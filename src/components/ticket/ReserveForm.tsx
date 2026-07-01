@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { track } from "@vercel/analytics";
 import { ArrowUpRight, Check, Copy, Landmark } from "lucide-react";
 import { Countdown } from "./Countdown";
 import {
@@ -84,6 +85,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
         return;
       }
       setTicket(json.ticket as Ticket);
+      track("ticket_reserve_submit");
     } catch {
       setError("네트워크 오류가 발생했습니다.");
     } finally {
