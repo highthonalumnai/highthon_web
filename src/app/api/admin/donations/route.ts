@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { isAdmin } from "@/lib/adminAuth";
 import { adminSecret, supabaseServer } from "@/lib/supabaseServer";
+import { sendDonationConfirmedEmail } from "@/lib/email";
+import type { Donation } from "@/lib/donations";
+
+export const runtime = "nodejs";
 
 export async function GET(request: Request) {
   if (!(await isAdmin())) {
@@ -50,5 +54,20 @@ export async function POST(request: Request) {
   if (error) {
     return NextResponse.json({ error: "처리에 실패했습니다." }, { status: 400 });
   }
-  return NextResponse.json({ donation: data });
+
+  const donation = (Array.isArray(data) ? data[0] : data) as Donation | null;
+
+  let emailSent: boolean | undefined;
+  if (action === "confirm" && donation?.email) {
+    try {
+      await sendDonationConfirmedEmail(donation);
+      emailSent = true;
+    } catch (e) {
+      // 확정은 이미 DB에 반영됨 — 이메일 실패로 응답을 실패시키지 않는다.
+      console.error("후원 확정 이메일 발송 실패:", e);
+      emailSent = false;
+    }
+  }
+
+  return NextResponse.json({ donation: data, ...(emailSent === undefined ? {} : { emailSent }) });
 }
