@@ -209,20 +209,14 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
       </div>
 
       {/* summary */}
-      <dl className="mt-5 grid grid-cols-3 gap-3 border-y border-line py-5 text-center">
+      <dl className="mt-5 grid grid-cols-2 gap-3 border-y border-line py-5 text-center">
         <div>
           <dt className="font-mono text-[10px] uppercase tracking-widest text-faint">일시</dt>
           <dd className="mt-1 font-display text-sm font-bold">{HC_EVENT.dateShort}</dd>
         </div>
-        <div className="border-x border-line">
+        <div className="border-l border-line">
           <dt className="font-mono text-[10px] uppercase tracking-widest text-faint">금액</dt>
           <dd className="mt-1 font-display text-sm font-bold">{formatWon(total)}</dd>
-        </div>
-        <div>
-          <dt className="font-mono text-[10px] uppercase tracking-widest text-faint">잔여</dt>
-          <dd className="mt-1 font-display text-sm font-bold">
-            {soldOut ? "마감" : `${settings.remaining}석`}
-          </dd>
         </div>
       </dl>
 
