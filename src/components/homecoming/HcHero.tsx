@@ -96,6 +96,15 @@ export function HcHero() {
               행사 살펴보기
               <ArrowDown size={16} />
             </a>
+            <TrackedLink
+              href="/homecoming/type"
+              event="type_test_cta_click"
+              eventData={{ location: "hc_hero" }}
+              className="group inline-flex items-center gap-2 rounded-full border border-paper/30 px-7 py-3.5 font-mono text-sm uppercase tracking-wider text-paper transition hover:bg-paper hover:text-ink"
+            >
+              내 유형 테스트
+              <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </TrackedLink>
           </div>
         </Reveal>
 
