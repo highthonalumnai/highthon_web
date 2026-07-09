@@ -103,9 +103,17 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
           {already ? "예약이 확정되어 있어요." : "입금하면 예약이 확정됩니다."}
         </h2>
 
+        {!already && (
+          <p className="mt-3 text-[15px] leading-relaxed text-muted">
+            입금 시 <b className="text-ink">입금자명</b>을 반드시 아래{" "}
+            <b className="text-ink">예약 번호 {ticket.code}</b>로 입력해 주세요. 입금자명이 예약
+            번호와 다르면 입금 확인이 되지 않을 수 있습니다.
+          </p>
+        )}
+
         {/* 예약 번호 */}
         <div className="mt-7 rounded-xl border border-line-strong bg-ink p-6 text-center text-paper">
-          <p className="font-mono text-[11px] uppercase tracking-widest text-paper/50">
+          <p className="font-mono text-[11px] uppercase tracking-widest text-paper">
             예약 번호 · 입금자명에 입력
           </p>
           <p className="mt-2 font-display text-5xl font-extrabold tracking-[0.2em] sm:text-6xl">
@@ -231,8 +239,9 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
             <input
               type="text"
               required
+              maxLength={5}
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName(e.target.value.slice(0, 5))}
               placeholder="홍길동"
               className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-ink"
             />

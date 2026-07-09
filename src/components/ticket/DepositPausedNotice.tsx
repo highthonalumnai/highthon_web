@@ -16,9 +16,11 @@ export function DepositPausedNotice({ className = "" }: { className?: string }) 
     >
       <Moon size={16} className="mt-0.5 shrink-0 text-ink" />
       <span>
-        <b className="text-ink">야간에는 입금 확인이 잠시 멈춥니다.</b> 오전{" "}
-        <b className="text-ink">{DEPOSIT_RESUME_HOUR}시</b>부터 순차적으로 확인되며, 그
-        전까지 예약은 만료되지 않으니 안심하세요.
+        <b className="text-ink">
+          입금 확인은 오전 {DEPOSIT_RESUME_HOUR}시부터 자정까지 진행됩니다.
+        </b>{" "}
+        야간에 입금하신 건은 오전 <b className="text-ink">{DEPOSIT_RESUME_HOUR}시</b>부터
+        순차적으로 확인되니 걱정하지 마세요.
       </span>
     </div>
   );
