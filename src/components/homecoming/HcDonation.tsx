@@ -207,10 +207,8 @@ export function HcDonation({ settings }: { settings: TicketSettings }) {
                     />
                     <span>
                       <b className="text-ink">현장 참여</b>
-                      {soldOut ? (
+                      {soldOut && (
                         <span className="ml-1 text-faint">(좌석 마감)</span>
-                      ) : (
-                        <span className="ml-1 text-faint">(잔여 {settings.remaining}석)</span>
                       )}
                       <br />
                       현장에 참여합니다. 선택 시 티켓 좌석 1개가 배정되어 별도 티켓 예약이
