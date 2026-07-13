@@ -308,7 +308,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
               ))}
             </select>
             <span className="mt-1.5 block text-[12px] text-faint">
-              04년생보다 어릴 경우 참가할 수 없습니다.
+              05년생보다 어릴 경우 참가할 수 없습니다.
             </span>
           </label>
           <label className="block">

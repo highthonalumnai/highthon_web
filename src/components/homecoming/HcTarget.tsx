@@ -34,7 +34,7 @@ export function HcTarget() {
               <h2 className="mt-5 font-display text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
                 “하이톤을 기억하는
                 <br />
-                성인 <span className="text-stroke">(04년생 이전).”</span>
+                성인 <span className="text-stroke">(05년생 이전).”</span>
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
