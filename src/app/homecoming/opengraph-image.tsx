@@ -21,6 +21,7 @@ export default async function Image() {
           alignItems: "center",
           justifyContent: "center",
           background: "#ffffff",
+          fontFamily: "sans-serif",
         }}
       >
         <img src={logoSrc} width={460} height={460} alt="" />
@@ -34,6 +35,17 @@ export default async function Image() {
           }}
         >
           2026 . 07 . 25
+        </div>
+        <div
+          style={{
+            marginTop: 20,
+            fontSize: 24,
+            letterSpacing: 2,
+            color: "#737373",
+            fontWeight: 600,
+          }}
+        >
+          해커톤이 아닌, 네트워킹 밋업
         </div>
       </div>
     ),
