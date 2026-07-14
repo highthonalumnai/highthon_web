@@ -24,7 +24,16 @@ export default async function Image() {
           fontFamily: "sans-serif",
         }}
       >
-        <img src={logoSrc} width={460} height={460} alt="" />
+        {/* 로고 PNG는 상하로 약 24.5%씩 투명 여백을 포함(1800px 프레임 중 실제 잉크는 439~1359).
+            음수 마진으로 그 여백을 레이아웃에서 제거해 로고와 날짜 간격을 좁히고,
+            보이는 로고+텍스트 묶음이 세로 중앙에 오도록 함. */}
+        <img
+          src={logoSrc}
+          width={440}
+          height={440}
+          alt=""
+          style={{ marginTop: -104, marginBottom: -104 }}
+        />
         <div
           style={{
             marginTop: 8,
