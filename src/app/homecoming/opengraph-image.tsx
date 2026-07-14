@@ -38,11 +38,11 @@ export default async function Image() {
         </div>
         <div
           style={{
-            marginTop: 20,
-            fontSize: 24,
+            marginTop: 24,
+            fontSize: 40,
             letterSpacing: 2,
-            color: "#737373",
-            fontWeight: 600,
+            color: "#525252",
+            fontWeight: 700,
           }}
         >
           해커톤이 아닌, 네트워킹 밋업
