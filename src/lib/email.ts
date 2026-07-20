@@ -97,15 +97,13 @@ export async function sendTicketConfirmedEmail(ticket: Ticket): Promise<void> {
   });
 }
 
-/** 행사 취소 안내 메일 — 취소 사실 + 감사만 (환불 문구 없음). */
-export async function sendTicketCancelledEmail(ticket: Ticket): Promise<void> {
-  const rows = [row("예약 번호", ticket.code), row("성함", ticket.name)].join("");
-
-  const html = shell(
+/** 취소 안내 메일 공통 본문 — 예약/후원 모두 동일 문구를 사용한다. */
+function cancelledEmailHtml(name: string, rows: string): string {
+  return shell(
     `
     <h1 style="font-size:22px;margin:0 0 12px">홈커밍데이가 취소되었습니다</h1>
     <p style="font-size:15px;color:#374151;line-height:1.7;margin:0 0 20px">
-      ${ticket.name}님, 안녕하세요. <strong>하이톤 : 홈커밍데이</strong> 운영진입니다.
+      ${name}님, 안녕하세요. <strong>하이톤 : 홈커밍데이</strong> 운영진입니다.
       7월 25일(토) 예정되어 있던 행사가 부득이하게 취소되었음을 안내드립니다.
       오랜 시간 행사를 준비해 왔으나, 예정된 프로그램을 원활히 운영하고 행사의 취지를
       살리기 어렵다고 판단하여 최종적으로 취소를 결정하게 되었습니다.
@@ -119,12 +117,30 @@ export async function sendTicketCancelledEmail(ticket: Ticket): Promise<void> {
   `,
     null,
   );
+}
 
+/** 행사 취소 안내 메일(예약) — 취소 사실 + 감사만 (환불 문구 없음). */
+export async function sendTicketCancelledEmail(ticket: Ticket): Promise<void> {
+  const rows = [row("예약 번호", ticket.code), row("성함", ticket.name)].join("");
   await mailer().sendMail({
     from: FROM,
     to: ticket.email,
     subject: "[하이톤 홈커밍] 홈커밍데이 취소 안내",
-    html,
+    html: cancelledEmailHtml(ticket.name, rows),
+  });
+}
+
+/** 행사 취소 안내 메일(개인 후원) — 예약과 동일 문구. */
+export async function sendDonationCancelledEmail(donation: Donation): Promise<void> {
+  const rows = [
+    donation.code ? row("후원 번호", donation.code) : "",
+    row("성함", donation.name),
+  ].join("");
+  await mailer().sendMail({
+    from: FROM,
+    to: donation.email,
+    subject: "[하이톤 홈커밍] 홈커밍데이 취소 안내",
+    html: cancelledEmailHtml(donation.name, rows),
   });
 }
 
