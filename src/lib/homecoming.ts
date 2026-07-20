@@ -5,6 +5,23 @@ export const HC_EVENT = {
   dateShort: "2026.07.25",
 } as const;
 
+// 행사 취소 — 예약/후원 신청 CTA를 비활성화하고 폼을 차단한다.
+// 행사를 재개하려면 false로 되돌린다.
+export const HC_CANCELLED: boolean = true;
+
+// 취소로 예약/후원 폼을 막을 때 노출하는 안내 문구.
+export const HC_CANCELLED_RESERVE_MSG = "행사가 취소되어 더 이상 예약을 받지 않습니다.";
+export const HC_CANCELLED_DONATE_MSG = "행사가 취소되어 더 이상 후원을 받지 않습니다.";
+
+// 행사 취소 공지 팝업 — /homecoming 방문 시 노출. 환불은 이미 전액 완료되어
+// 취소 사실과 감사 인사만 전한다.
+export const HC_CANCEL_NOTICE = {
+  eyebrow: "공지 · NOTICE",
+  title: "홈커밍데이가 취소되었습니다",
+  body: "7월 25일(토) 예정되어 있던 「하이톤 : 홈커밍데이」 행사가 부득이하게 취소되었습니다. 행사에 관심을 가지고 함께해 주시려 했던 모든 분들께 진심으로 감사드립니다.",
+  dismiss: "확인",
+} as const;
+
 export const HC_CONTACT = {
   email: "highthon.alumnai@gmail.com",
   instagram: "https://www.instagram.com/highthon_homecomingday/",

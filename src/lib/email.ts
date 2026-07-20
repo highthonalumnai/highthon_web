@@ -44,15 +44,25 @@ function footer(): string {
   `;
 }
 
-function shell(inner: string, cta?: { label: string; href: string }): string {
-  const { label, href } = cta ?? { label: "행사 안내 페이지 바로가기 →", href: SITE_URL };
+function shell(inner: string, cta?: { label: string; href: string } | null): string {
+  // cta === null이면 하단 버튼을 생략한다(예: 취소 안내 메일). 미전달 시 기본 CTA.
+  const button =
+    cta === null
+      ? ""
+      : (() => {
+          const { label, href } = cta ?? {
+            label: "행사 안내 페이지 바로가기 →",
+            href: SITE_URL,
+          };
+          return `
+    <div style="margin:24px 0 4px">
+      <a href="${href}" style="display:inline-block;background:#2563eb;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 24px;border-radius:8px">${label}</a>
+    </div>`;
+        })();
   return `
   <div style="max-width:560px;margin:0 auto;padding:32px 24px;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Segoe UI',Roboto,sans-serif;color:#111827">
     <div style="font-size:13px;letter-spacing:0.08em;color:#2563eb;font-weight:700;margin-bottom:8px">HIGHTHON · HOMECOMING DAY</div>
-    ${inner}
-    <div style="margin:24px 0 4px">
-      <a href="${href}" style="display:inline-block;background:#2563eb;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;padding:12px 24px;border-radius:8px">${label}</a>
-    </div>
+    ${inner}${button}
     ${footer()}
   </div>`;
 }
@@ -83,6 +93,37 @@ export async function sendTicketConfirmedEmail(ticket: Ticket): Promise<void> {
     from: FROM,
     to: ticket.email,
     subject: "[하이톤 홈커밍] 예약이 확정되었습니다",
+    html,
+  });
+}
+
+/** 행사 취소 안내 메일 — 취소 사실 + 감사만 (환불 문구 없음). */
+export async function sendTicketCancelledEmail(ticket: Ticket): Promise<void> {
+  const rows = [row("예약 번호", ticket.code), row("성함", ticket.name)].join("");
+
+  const html = shell(
+    `
+    <h1 style="font-size:22px;margin:0 0 12px">홈커밍데이가 취소되었습니다</h1>
+    <p style="font-size:15px;color:#374151;line-height:1.7;margin:0 0 20px">
+      ${ticket.name}님, 안녕하세요. <strong>하이톤 : 홈커밍데이</strong> 운영진입니다.
+      7월 25일(토) 예정되어 있던 행사가 부득이하게 취소되었음을 안내드립니다.
+      오랜 시간 행사를 준비해 왔으나, 예정된 프로그램을 원활히 운영하고 행사의 취지를
+      살리기 어렵다고 판단하여 최종적으로 취소를 결정하게 되었습니다.
+    </p>
+    <p style="font-size:15px;color:#374151;line-height:1.7;margin:0 0 20px">
+      행사를 기대하며 신청해 주셨는데 좋지 않은 소식을 전해드리게 되어 진심으로 죄송합니다.
+      관심을 가지고 함께해 주시려 했던 마음에 깊이 감사드리며, 더 좋은 자리로 다시
+      인사드릴 수 있도록 하겠습니다.
+    </p>
+    <table style="font-size:15px;border-collapse:collapse;margin:0 0 8px">${rows}</table>
+  `,
+    null,
+  );
+
+  await mailer().sendMail({
+    from: FROM,
+    to: ticket.email,
+    subject: "[하이톤 홈커밍] 홈커밍데이 취소 안내",
     html,
   });
 }

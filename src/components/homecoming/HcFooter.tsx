@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { HC_CONTACT, HC_EVENT, HC_LOCATION } from "@/lib/homecoming";
+import { HC_CONTACT, HC_EVENT, HC_LOCATION, HC_CANCELLED } from "@/lib/homecoming";
 
 function HomeBadge() {
   return (
@@ -44,13 +44,22 @@ export function HcFooter() {
 
             <Reveal delay={0.12}>
               <div className="mt-10 flex flex-wrap gap-3">
-                <Link
-                  href="/homecoming/ticket"
-                  className="group inline-flex items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-ink transition hover:scale-[1.03] hover:bg-[#e5e5e5]"
-                >
-                  티켓 예약
-                  <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
+                {HC_CANCELLED ? (
+                  <span
+                    aria-disabled="true"
+                    className="inline-flex cursor-not-allowed items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-ink opacity-50"
+                  >
+                    티켓 예약
+                  </span>
+                ) : (
+                  <Link
+                    href="/homecoming/ticket"
+                    className="group inline-flex items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-ink transition hover:scale-[1.03] hover:bg-[#e5e5e5]"
+                  >
+                    티켓 예약
+                    <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
+                )}
                 <Link
                   href="/homecoming/ticket/check"
                   className="inline-flex items-center gap-2 rounded-full border border-paper/30 px-7 py-3.5 font-mono text-sm uppercase tracking-wider text-paper transition hover:bg-paper hover:text-ink"
@@ -117,13 +126,22 @@ export function HcFooter() {
 
         <div className="mt-20 flex flex-col gap-2 border-t border-paper/15 pt-6 font-mono text-xs text-paper/40 sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} HIGHTHON : HOMECOMING DAY</span>
-          <Link
-            href="/homecoming/sponsor"
-            className="group inline-flex items-center gap-1 uppercase tracking-widest transition-colors hover:text-paper/70"
-          >
-            기업 후원 문의
-            <ArrowUpRight size={13} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
+          {HC_CANCELLED ? (
+            <span
+              aria-disabled="true"
+              className="inline-flex cursor-not-allowed items-center gap-1 uppercase tracking-widest opacity-50"
+            >
+              기업 후원 문의
+            </span>
+          ) : (
+            <Link
+              href="/homecoming/sponsor"
+              className="group inline-flex items-center gap-1 uppercase tracking-widest transition-colors hover:text-paper/70"
+            >
+              기업 후원 문의
+              <ArrowUpRight size={13} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+          )}
         </div>
       </div>
     </footer>

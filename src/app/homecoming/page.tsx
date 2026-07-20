@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { HcCancelNotice } from "@/components/homecoming/HcCancelNotice";
 import { HcNavbar } from "@/components/homecoming/HcNavbar";
 import { HcHero } from "@/components/homecoming/HcHero";
 import { HcWhatIs } from "@/components/homecoming/HcWhatIs";
@@ -35,6 +36,7 @@ export const metadata: Metadata = {
 export default function HomecomingPage() {
   return (
     <>
+      <HcCancelNotice />
       <HcNavbar />
       <main>
         <HcHero />

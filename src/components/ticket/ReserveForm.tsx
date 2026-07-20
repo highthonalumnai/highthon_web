@@ -13,7 +13,7 @@ import {
   type Ticket,
   type TicketSettings,
 } from "@/lib/tickets";
-import { HC_EVENT } from "@/lib/homecoming";
+import { HC_EVENT, HC_CANCELLED, HC_CANCELLED_RESERVE_MSG } from "@/lib/homecoming";
 
 function CopyButton({ value }: { value: string }) {
   const [done, setDone] = useState(false);
@@ -54,6 +54,7 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
   const [ticket, setTicket] = useState<Ticket | null>(null);
 
   const soldOut = settings.sold_out;
+  const closed = HC_CANCELLED || soldOut;
   const total = settings.price;
 
   async function submit(e: React.FormEvent) {
@@ -228,9 +229,9 @@ export function ReserveForm({ settings }: { settings: TicketSettings }) {
         </div>
       </dl>
 
-      {soldOut ? (
+      {closed ? (
         <p className="mt-6 rounded-xl border border-line bg-paper p-5 text-center text-sm text-muted">
-          예약이 마감되었습니다.
+          {HC_CANCELLED ? HC_CANCELLED_RESERVE_MSG : "예약이 마감되었습니다."}
         </p>
       ) : (
         <div className="mt-6 space-y-5">

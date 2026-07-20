@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Menu, X } from "lucide-react";
-import { HC_NAV } from "@/lib/homecoming";
+import { HC_NAV, HC_CANCELLED } from "@/lib/homecoming";
+
+// 취소 시 CTA는 링크 대신 비활성 표시로 렌더한다.
+const CANCELLED_CTA = "pointer-events-none cursor-not-allowed opacity-50";
 
 export function HcNavbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -68,22 +71,44 @@ export function HcNavbar() {
             <ArrowLeft size={13} className="transition-transform group-hover:-translate-x-0.5" />
             HIGHTHON
           </Link>
-          <Link
-            href="/homecoming/sponsor"
-            className={`font-mono text-xs uppercase tracking-widest transition-colors ${
-              light ? "text-paper/60 hover:text-paper" : "text-faint hover:text-ink"
-            }`}
-          >
-            후원 문의
-          </Link>
-          <Link
-            href="/homecoming/ticket"
-            className={`rounded-full px-5 py-2 font-mono text-xs font-bold uppercase tracking-wider transition hover:opacity-80 ${
-              light ? "bg-paper text-ink" : "bg-ink text-paper"
-            }`}
-          >
-            티켓 예약
-          </Link>
+          {HC_CANCELLED ? (
+            <span
+              aria-disabled="true"
+              className={`font-mono text-xs uppercase tracking-widest ${CANCELLED_CTA} ${
+                light ? "text-paper/60" : "text-faint"
+              }`}
+            >
+              후원 문의
+            </span>
+          ) : (
+            <Link
+              href="/homecoming/sponsor"
+              className={`font-mono text-xs uppercase tracking-widest transition-colors ${
+                light ? "text-paper/60 hover:text-paper" : "text-faint hover:text-ink"
+              }`}
+            >
+              후원 문의
+            </Link>
+          )}
+          {HC_CANCELLED ? (
+            <span
+              aria-disabled="true"
+              className={`rounded-full px-5 py-2 font-mono text-xs font-bold uppercase tracking-wider ${CANCELLED_CTA} ${
+                light ? "bg-paper text-ink" : "bg-ink text-paper"
+              }`}
+            >
+              티켓 예약
+            </span>
+          ) : (
+            <Link
+              href="/homecoming/ticket"
+              className={`rounded-full px-5 py-2 font-mono text-xs font-bold uppercase tracking-wider transition hover:opacity-80 ${
+                light ? "bg-paper text-ink" : "bg-ink text-paper"
+              }`}
+            >
+              티켓 예약
+            </Link>
+          )}
         </div>
 
         <button
@@ -119,22 +144,40 @@ export function HcNavbar() {
               </Link>
             </li>
             <li>
-              <Link
-                href="/homecoming/sponsor"
-                onClick={() => setOpen(false)}
-                className="block py-3 font-mono text-sm uppercase tracking-widest text-muted"
-              >
-                기업 후원
-              </Link>
+              {HC_CANCELLED ? (
+                <span
+                  aria-disabled="true"
+                  className={`block py-3 font-mono text-sm uppercase tracking-widest text-muted ${CANCELLED_CTA}`}
+                >
+                  기업 후원
+                </span>
+              ) : (
+                <Link
+                  href="/homecoming/sponsor"
+                  onClick={() => setOpen(false)}
+                  className="block py-3 font-mono text-sm uppercase tracking-widest text-muted"
+                >
+                  기업 후원
+                </Link>
+              )}
             </li>
             <li>
-              <Link
-                href="/homecoming/ticket"
-                onClick={() => setOpen(false)}
-                className="mt-2 block rounded-full bg-ink py-3 text-center font-mono text-sm font-bold uppercase tracking-wider text-paper"
-              >
-                티켓 예약
-              </Link>
+              {HC_CANCELLED ? (
+                <span
+                  aria-disabled="true"
+                  className={`mt-2 block rounded-full bg-ink py-3 text-center font-mono text-sm font-bold uppercase tracking-wider text-paper ${CANCELLED_CTA}`}
+                >
+                  티켓 예약
+                </span>
+              ) : (
+                <Link
+                  href="/homecoming/ticket"
+                  onClick={() => setOpen(false)}
+                  className="mt-2 block rounded-full bg-ink py-3 text-center font-mono text-sm font-bold uppercase tracking-wider text-paper"
+                >
+                  티켓 예약
+                </Link>
+              )}
             </li>
           </ul>
         </div>

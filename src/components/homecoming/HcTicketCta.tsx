@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Ticket } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { HC_EVENT } from "@/lib/homecoming";
+import { HC_EVENT, HC_CANCELLED } from "@/lib/homecoming";
 
 export function HcTicketCta() {
   return (
@@ -31,13 +31,22 @@ export function HcTicketCta() {
 
           <Reveal delay={0.12}>
             <div className="flex flex-wrap gap-3">
-              <Link
-                href="/homecoming/ticket"
-                className="group inline-flex items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-ink transition hover:scale-[1.03] hover:bg-[#e5e5e5]"
-              >
-                티켓 예약
-                <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
+              {HC_CANCELLED ? (
+                <span
+                  aria-disabled="true"
+                  className="inline-flex cursor-not-allowed items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-ink opacity-50"
+                >
+                  티켓 예약
+                </span>
+              ) : (
+                <Link
+                  href="/homecoming/ticket"
+                  className="group inline-flex items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-ink transition hover:scale-[1.03] hover:bg-[#e5e5e5]"
+                >
+                  티켓 예약
+                  <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Link>
+              )}
               <Link
                 href="/homecoming/ticket/check"
                 className="inline-flex items-center gap-2 rounded-full border border-paper/30 px-7 py-3.5 font-mono text-sm uppercase tracking-wider text-paper transition hover:bg-paper hover:text-ink"

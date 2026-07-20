@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { HC_CONTACT } from "@/lib/homecoming";
+import { HC_CONTACT, HC_CANCELLED } from "@/lib/homecoming";
 
 function HomeBadge() {
   return (
@@ -76,13 +76,22 @@ export function HcContact() {
             </Reveal>
 
             <Reveal delay={0.16}>
-              <a
-                href={`mailto:${HC_CONTACT.email}?subject=하이톤 홈커밍데이 후원 문의`}
-                className="mt-12 inline-flex items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-ink transition hover:scale-[1.03] hover:bg-[#e5e5e5]"
-              >
-                후원 제안하기
-                <ArrowUpRight size={16} />
-              </a>
+              {HC_CANCELLED ? (
+                <span
+                  aria-disabled="true"
+                  className="mt-12 inline-flex cursor-not-allowed items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-ink opacity-50"
+                >
+                  후원 제안하기
+                </span>
+              ) : (
+                <a
+                  href={`mailto:${HC_CONTACT.email}?subject=하이톤 홈커밍데이 후원 문의`}
+                  className="mt-12 inline-flex items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-mono text-sm font-bold uppercase tracking-wider text-ink transition hover:scale-[1.03] hover:bg-[#e5e5e5]"
+                >
+                  후원 제안하기
+                  <ArrowUpRight size={16} />
+                </a>
+              )}
             </Reveal>
           </div>
 

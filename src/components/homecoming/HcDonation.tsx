@@ -8,7 +8,7 @@ import { Countdown } from "@/components/ticket/Countdown";
 import { DepositPausedNotice } from "@/components/ticket/DepositPausedNotice";
 import { formatWon, type TicketSettings } from "@/lib/tickets";
 import { DONATION_MIN, type Donation } from "@/lib/donations";
-import { HC_CONTACT } from "@/lib/homecoming";
+import { HC_CONTACT, HC_CANCELLED, HC_CANCELLED_DONATE_MSG } from "@/lib/homecoming";
 
 function CopyButton({ value }: { value: string }) {
   const [done, setDone] = useState(false);
@@ -119,7 +119,11 @@ export function HcDonation({ settings }: { settings: TicketSettings }) {
 
         <Reveal delay={0.14}>
           <div className="mt-10">
-            {donation ? (
+            {HC_CANCELLED ? (
+              <p className="rounded-2xl border border-line bg-paper p-7 text-center text-sm text-muted sm:p-9">
+                {HC_CANCELLED_DONATE_MSG}
+              </p>
+            ) : donation ? (
               <DonationResult donation={donation} onReset={reset} />
             ) : (
               <form
